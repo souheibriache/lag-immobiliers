@@ -194,7 +194,7 @@ const MOCK_PRODUCTS: Product[] = [
 ]
 const API_CONFIG = {
   USE_MOCK_DATA: false, // Set to false when real endpoints are ready
-  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://lag-immobiliers-api.souheib-riache.fr/api/v1",
+  BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://api.lag-services.com/api/v1",
   ENDPOINTS: {
     PRODUCTS: "/products",
     PRODUCT_BY_ID: (id: string) => `/products/${id}`,

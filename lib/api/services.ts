@@ -1,6 +1,6 @@
 import type { Service, ServiceFilters } from "@/lib/types/service"
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://lag-immobiliers-api.souheib-riache.fr/api/v1"
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://api.lag-services.com/api/v1"
 const FALLBACK_SERVICES: Service[] = [
   {
     id: "44ba69ba-8b39-46cf-8b14-7547b503461a",

@@ -79,7 +79,7 @@ interface PaginatedResponse<T> {
 
 const API_CONFIG = {
     USE_MOCK_DATA: false,
-    BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://lag-immobiliers-api.souheib-riache.fr/api/v1",
+    BASE_URL: process.env.NEXT_PUBLIC_API_URL || "https://api.lag-services.com/api/v1",
     ENDPOINTS: {
         PROPERTIES: "/property",
         PROPERTY_BY_ID: (id: string) => `/property/${id}`,

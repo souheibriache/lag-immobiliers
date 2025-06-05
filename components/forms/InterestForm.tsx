@@ -61,7 +61,7 @@ interface GenericInterestFormProps {
 }
 
 const createRequestConfig = (type: RequestType, id: string): RequestConfig => {
-    const baseUrl = "https://lag-immobiliers-api.souheib-riache.fr/api/v1"
+    const baseUrl = "https://api.lag-services.com/api/v1"
 
     switch (type) {
         case 'property':

@@ -127,7 +127,7 @@ export default function ContactForm() {
         submitData.questionAttachments = base64File
       }
 
-      const response = await fetch("https://lag-immobiliers-api.souheib-riache.fr/api/v1/support", {
+      const response = await fetch("https://api.lag-services.com/api/v1/support", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(submitData)
