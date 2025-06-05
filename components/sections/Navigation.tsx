@@ -14,7 +14,7 @@ export default function Navigation() {
   const navigationLinks = [
     { href: "#biens", label: "Portfolio" },
     { href: "#services", label: "Services" },
-    { href: "#expertise", label: "Expertise" },
+    { href: "#ressources", label: "Expertise" },
     { href: "#contact", label: "Contact" }
   ]
 

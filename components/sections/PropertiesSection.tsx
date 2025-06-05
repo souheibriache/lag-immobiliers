@@ -43,9 +43,7 @@ import LazyImage from "@/components/ui/LazyImage"
 import InterestForm from "@/components/forms/InterestForm"
 import GenericInterestForm, { createRequestConfig, RequestConfig } from "@/components/forms/InterestForm"
 
-/**
- * Enhanced property data extraction with fallbacks
- */
+
 const getPropertyDetails = (property: any) => {
   const beds = getPropertyBeds(property?.characteristics)
   const baths = getPropertyBaths(property?.characteristics)
@@ -61,20 +59,16 @@ const getPropertyDetails = (property: any) => {
   }
 }
 
-/**
- * Enhanced Property Card Component with better highlighting
- */
+
 function PropertyCard({
                         property,
                         isActive,
-                        isCenter,
                         slideWidth,
                         onViewDetails,
                         onExpressInterest
                       }: {
   property: any
   isActive: boolean
-  isCenter: boolean
   slideWidth: number
   onViewDetails: () => void
   onExpressInterest: (e: React.MouseEvent) => void
@@ -87,19 +81,14 @@ function PropertyCard({
       <motion.li
           className="relative shrink-0"
           style={{ width: slideWidth }}
-          initial={{ opacity: 0.5, scale: 0.85 }}
+          initial={{ opacity: 0.4, scale: 0.88 }}
           animate={{
-            opacity: isCenter ? 1 : 0.7,
-            scale: isCenter ? 1 : 0.9,
-            y: isCenter ? 0 : 10
+            opacity: isActive ? 1 : 0.6,
+            scale: isActive ? 1 : 0.92
           }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ type: "spring", stiffness: 220, damping: 24 }}
       >
-        <article className={`group relative rounded-2xl overflow-hidden bg-white transition-all duration-500 focus:ring-2 focus:ring-emerald-500 focus:outline-none ${
-            isCenter
-                ? "shadow-2xl hover:shadow-3xl transform-gpu"
-                : "shadow-lg hover:shadow-xl"
-        }`}>
+        <article className="group relative rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-[hsl(var(--brand))] focus:outline-none">
 
           {/* Click Handler for Card */}
           <div
@@ -118,7 +107,7 @@ function PropertyCard({
           />
 
           {/* Image Container */}
-          <div className="relative h-64 overflow-hidden">
+          <div className="relative h-64 overflow-hidden" style={{ zIndex: 2 }}>
             <LazyImage
                 src={mainImage}
                 alt={property.title}
@@ -127,34 +116,18 @@ function PropertyCard({
                 className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
             />
 
-            {/* Enhanced Overlay Gradients */}
-            <div className={`absolute inset-0 transition-all duration-500 ${
-                isCenter
-                    ? "bg-gradient-to-t from-black/70 via-transparent to-black/30"
-                    : "bg-gradient-to-t from-black/60 via-transparent to-black/20"
-            }`} />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-            {/* Active indicator for center item */}
-            {isCenter && (
-                <div className="absolute top-4 left-4" style={{ zIndex: 4 }}>
-                  <Badge className="bg-emerald-600 text-white font-medium shadow-lg animate-pulse">
-                    <Star className="w-3 h-3 mr-1" />
-                    À la une
-                  </Badge>
-                </div>
-            )}
-
-            {/* Property Type Badge */}
-            <div className={`absolute top-4 ${isCenter ? 'right-4' : 'left-4'}`} style={{ zIndex: 3 }}>
+            <div className="absolute top-4 left-4" style={{ zIndex: 3 }}>
               <Badge className="bg-white/90 text-slate-800 font-medium shadow-sm">
                 {details.type}
               </Badge>
             </div>
 
             {/* Featured Badge */}
-            {property.isFeatured && !isCenter && (
+            {property.isFeatured && (
                 <div className="absolute top-4 right-4" style={{ zIndex: 3 }}>
-                  <Badge className="bg-emerald-600 text-white font-medium shadow-sm">
+                  <Badge className="bg-[hsl(var(--brand))] text-white font-medium shadow-sm">
                     <Star className="w-3 h-3 mr-1" />
                     En vedette
                   </Badge>
@@ -163,13 +136,11 @@ function PropertyCard({
           </div>
 
           {/* Content Container */}
-          <div className="relative p-6">
+          <div className="relative p-6" style={{ zIndex: 2 }}>
 
             {/* Title and Location */}
             <div className="mb-4">
-              <h3 className={`font-semibold text-slate-900 leading-tight line-clamp-2 mb-2 group-hover:text-emerald-600 transition-colors ${
-                  isCenter ? "text-xl" : "text-lg"
-              }`}>
+              <h3 className="text-lg font-semibold text-slate-900 leading-tight line-clamp-2 mb-2 group-hover:text-[hsl(var(--brand))] transition-colors">
                 {property.title}
               </h3>
 
@@ -183,9 +154,7 @@ function PropertyCard({
 
             {/* Price */}
             <div className="mb-4">
-            <span className={`font-bold text-emerald-600 ${
-                isCenter ? "text-3xl" : "text-2xl"
-            }`}>
+            <span className="text-2xl font-bold text-[hsl(var(--brand))]">
               {formatPrice(property)}
             </span>
             </div>
@@ -218,10 +187,10 @@ function PropertyCard({
                 </div>
             )}
 
-            {/* Action Buttons with proper event handling */}
-            <div className="flex gap-3 relative z-20">
+            {/* Action Buttons - positioned above overlay */}
+            <div className="flex gap-3 relative" style={{ zIndex: 10 }}>
               <Button
-                  size={isCenter ? "default" : "sm"}
+                  size="sm"
                   variant="outline"
                   className="flex-1 border-slate-200 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-white transition-colors"
                   onClick={(e) => {
@@ -229,21 +198,19 @@ function PropertyCard({
                     e.stopPropagation()
                     onViewDetails()
                   }}
-                  onMouseDown={(e) => e.stopPropagation()}
               >
                 <Eye className="w-4 h-4 mr-1" />
                 Voir
               </Button>
 
               <Button
-                  size={isCenter ? "default" : "sm"}
+                  size="sm"
                   className="flex-1 bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white transition-colors"
                   onClick={(e) => {
                     e.preventDefault()
                     e.stopPropagation()
                     onExpressInterest(e)
                   }}
-                  onMouseDown={(e) => e.stopPropagation()}
               >
                 <Heart className="w-4 h-4 mr-1" />
                 Intéressé
@@ -256,7 +223,7 @@ function PropertyCard({
 }
 
 /**
- * Enhanced Properties Carousel Component with proper centering
+ * Enhanced Properties Carousel Component
  */
 export default function PropertiesSection() {
   const { properties, loading, error } = useFeaturedProperties(10)
@@ -267,47 +234,28 @@ export default function PropertiesSection() {
 
   const router = useRouter()
   const trackRef = useRef<HTMLUListElement>(null)
-  const containerRef = useRef<HTMLDivElement>(null)
   const [index, setIndex] = useState(0)
-  const [containerWidth, setContainerWidth] = useState(0)
 
   const slideW = 380
   const gap = 24
+  const visible = typeof window !== "undefined" && window.innerWidth >= 1024 ? 3 : 1
 
-  // Update container width on resize
-  useEffect(() => {
-    const updateWidth = () => {
-      if (containerRef.current) {
-        setContainerWidth(containerRef.current.offsetWidth)
-      }
-    }
-
-    updateWidth()
-    window.addEventListener('resize', updateWidth)
-    return () => window.removeEventListener('resize', updateWidth)
-  }, [])
-
-  // Auto-advance carousel
   useEffect(() => {
     if (!properties.length) return
-    const id = setInterval(() => setIndex((i) => (i + 1) % properties.length), 6000)
+    const id = setInterval(() => setIndex((i) => (i + 1) % properties.length), 5000)
     return () => clearInterval(id)
   }, [properties.length])
 
-  // Center the active item
   useEffect(() => {
-    if (!trackRef.current || !containerWidth) return
-
-    const centerOffset = (containerWidth - slideW) / 2
-    const scrollPosition = (slideW + gap) * index - centerOffset
-
+    if (!trackRef.current) return
     trackRef.current.scrollTo({
-      left: Math.max(0, scrollPosition),
+      left: (slideW + gap) * index,
       behavior: "smooth",
     })
-  }, [index, containerWidth, slideW, gap])
+  }, [index])
 
   const pos = useMotionValue(0)
+  const rotate = useTransform(pos, [-200, 200], [-6, 6])
 
   const handleFormError = (error: any) => {
     setFormError(error)
@@ -322,17 +270,12 @@ export default function PropertiesSection() {
     e.stopPropagation()
     setSelectedProperty(property)
     setFormError(null)
-
     const config = createRequestConfig('property', property.id)
     setRequestConfig(config)
   }
 
   const handleViewProperty = (property: any) => {
     router.push(`/biens/${property.id}`)
-  }
-
-  const navigateToIndex = (newIndex: number) => {
-    setIndex(Math.max(0, Math.min(newIndex, properties.length - 1)))
   }
 
   if (loading) {
@@ -359,33 +302,27 @@ export default function PropertiesSection() {
       <section id="biens" className="section-padding bg-slate-50">
         <div className="section-container">
           <header className="mb-16 text-center">
-            <Badge className="bg-emerald-600 text-white px-6 py-2 rounded-full shadow mb-4">
-              Opportunités sélectionnées
+            <Badge className="bg-[hsl(var(--brand))] text-white px-6 py-2 rounded-full shadow mb-4">
+              Opportunités à saisir
             </Badge>
             <h2 className="text-3xl md:text-4xl font-semibold text-slate-900 mb-4">
-              Biens à fort potentiel
+              Biens prêts à performer
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Sélection rigoureuse d'investissements immobiliers pour rentabilité optimale et croissance patrimoniale.
+              Des actifs triés sur le volet pour rentabilité immédiate et plus‑value long terme.
             </p>
           </header>
 
-          <div className="relative" ref={containerRef}>
+          <div className="relative">
             <motion.ul
                 ref={trackRef}
                 className="flex cursor-grab overflow-hidden"
                 style={{ gap, x: pos }}
                 drag="x"
                 dragElastic={0.15}
-                onDrag={(_, info) => {
-                  const offset = info.offset.x
-                  if (Math.abs(offset) > 100) {
-                    if (offset > 0 && index > 0) {
-                      navigateToIndex(index - 1)
-                    } else if (offset < 0 && index < properties.length - 1) {
-                      navigateToIndex(index + 1)
-                    }
-                  }
+                dragConstraints={{
+                  left: -((slideW + gap) * (properties.length - visible)),
+                  right: 0
                 }}
             >
               {properties.map((property, i) => (
@@ -393,7 +330,6 @@ export default function PropertiesSection() {
                       key={property.id}
                       property={property}
                       isActive={i === index}
-                      isCenter={i === index}
                       slideWidth={slideW}
                       onViewDetails={() => handleViewProperty(property)}
                       onExpressInterest={(e) => handlePropertyInterest(property, e)}
@@ -404,33 +340,31 @@ export default function PropertiesSection() {
             {/* Navigation Arrows */}
             <button
                 aria-label="Bien précédent"
-                onClick={() => navigateToIndex(index - 1)}
-                disabled={index === 0}
-                className="absolute -left-6 top-1/2 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 lg:flex transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => setIndex((i) => (i - 1 + properties.length) % properties.length)}
+                className="absolute -left-6 top-1/2 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 lg:flex transition-all duration-200"
             >
               <ChevronLeft className="w-6 h-6 text-slate-700" />
             </button>
 
             <button
                 aria-label="Bien suivant"
-                onClick={() => navigateToIndex(index + 1)}
-                disabled={index === properties.length - 1}
-                className="absolute -right-6 top-1/2 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 lg:flex transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+                onClick={() => setIndex((i) => (i + 1) % properties.length)}
+                className="absolute -right-6 top-1/2 hidden h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg hover:shadow-xl hover:scale-105 active:scale-95 lg:flex transition-all duration-200"
             >
               <ChevronRight className="w-6 h-6 text-slate-700" />
             </button>
 
-            {/* Enhanced Dot Indicators */}
+            {/* Dot Indicators */}
             <div className="mt-12 flex justify-center gap-3">
               {properties.map((_, b) => (
                   <button
                       key={b}
                       onClick={() => setIndex(b)}
                       aria-label={`Aller au bien ${b + 1}`}
-                      className={`h-3 transition-all duration-300 rounded-full ${
+                      className={`h-3 w-3 rounded-full transition-all duration-200 ${
                           b === index
-                              ? "w-8 bg-emerald-600 shadow-lg"
-                              : "w-3 bg-slate-300 hover:bg-slate-400"
+                              ? "bg-[hsl(var(--brand))] scale-125 shadow-sm"
+                              : "bg-slate-300 hover:bg-slate-400"
                       }`}
                   />
               ))}
@@ -441,10 +375,10 @@ export default function PropertiesSection() {
           <div className="mt-16 text-center">
             <Button
                 size="lg"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+                className="bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
                 onClick={() => router.push("/biens")}
             >
-              Voir toutes les opportunités
+              Voir tout le catalogue
               <Plane className="ml-2 h-5 w-5" />
             </Button>
           </div>

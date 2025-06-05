@@ -144,7 +144,6 @@ export default function HeroSection() {
             {[
               ["12 ans d'expertise", Shield],
               ["4,9/5 satisfaction", Check],
-              // ["+50M€ sous gestion", TrendingUp],
             ].map(([title, Icon]) => (
                 <div key={title} className="flex items-center gap-2 text-sm text-white/90">
                   <Icon className="h-4 w-4 text-emerald-400" />
@@ -153,7 +152,6 @@ export default function HeroSection() {
             ))}
           </motion.div>
 
-          {/* Scroll indicator */}
           <motion.button
               onClick={goPortfolio}
               className="mt-16 text-white/70 hover:text-emerald-400 transition-colors duration-300 mx-auto block"
@@ -169,7 +167,6 @@ export default function HeroSection() {
           </motion.button>
         </motion.div>
 
-        {/* Additional scroll indicator at bottom of section */}
         <motion.button
             onClick={goPortfolio}
             className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/70 hover:text-emerald-400 transition-colors duration-300"

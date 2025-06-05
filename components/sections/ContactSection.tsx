@@ -14,8 +14,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Badge } from "@/components/ui/badge"
-// • Optimized for proper scrolling display
-// ───────────────────────────────────────────
 
 interface ContactFormData {
   firstName: string
@@ -160,7 +158,7 @@ export default function ContactForm() {
   }
 
   return (
-      <section className="py-12 bg-slate-50">
+      <section id="contact" className="py-12 bg-slate-50">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8">
             <Badge className="bg-[hsl(var(--brand))] text-white px-4 py-1 rounded-full mb-3">
@@ -177,12 +175,12 @@ export default function ContactForm() {
           <AnimatePresence>
             {isSuccess && (
                 <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
+                    initial={{opacity: 0, y: -10}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: -10}}
                     className="mb-6 p-3 bg-green-50 border border-green-200 rounded-lg flex items-center gap-2"
                 >
-                  <CheckCircle className="w-4 h-4 text-green-600" />
+                  <CheckCircle className="w-4 h-4 text-green-600"/>
                   <p className="text-green-800 text-sm font-medium">Message envoyé avec succès !</p>
                 </motion.div>
             )}
@@ -191,12 +189,12 @@ export default function ContactForm() {
           <AnimatePresence>
             {submitError && (
                 <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
+                    initial={{opacity: 0, y: -10}}
+                    animate={{opacity: 1, y: 0}}
+                    exit={{opacity: 0, y: -10}}
                     className="mb-6 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2"
                 >
-                  <AlertCircle className="w-4 h-4 text-red-600" />
+                  <AlertCircle className="w-4 h-4 text-red-600"/>
                   <p className="text-red-800 text-sm">{submitError}</p>
                 </motion.div>
             )}
@@ -283,16 +281,16 @@ export default function ContactForm() {
                       onClick={() => fileInputRef.current?.click()}
                       className="border-2 border-dashed border-slate-200 rounded-lg p-4 text-center cursor-pointer hover:border-[hsl(var(--brand))] transition-colors"
                   >
-                    <Upload className="w-5 h-5 text-slate-400 mx-auto mb-1" />
+                    <Upload className="w-5 h-5 text-slate-400 mx-auto mb-1"/>
                     <p className="text-sm text-slate-600">Ajouter un fichier (optionnel)</p>
                     <p className="text-xs text-slate-500">PDF, images, documents (max 10MB)</p>
                   </div>
               ) : (
                   <div className="flex items-center gap-2 p-3 bg-slate-50 rounded-lg">
-                    <Paperclip className="w-4 h-4 text-[hsl(var(--brand))]" />
+                    <Paperclip className="w-4 h-4 text-[hsl(var(--brand))]"/>
                     <span className="text-sm text-slate-700 flex-1">{formData.questionAttachments.name}</span>
                     <button type="button" onClick={removeFile} className="text-slate-400 hover:text-red-500">
-                      <X className="w-4 h-4" />
+                      <X className="w-4 h-4"/>
                     </button>
                   </div>
               )}
@@ -318,12 +316,12 @@ export default function ContactForm() {
             >
               {isSubmitting ? (
                   <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"/>
                     Envoi...
                   </div>
               ) : (
                   <div className="flex items-center gap-2">
-                    <Send className="w-4 h-4" />
+                    <Send className="w-4 h-4"/>
                     Envoyer
                   </div>
               )}
