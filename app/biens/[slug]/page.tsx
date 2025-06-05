@@ -1,16 +1,5 @@
 "use client"
 
-/**
- * Enterprise Property Detail Page
- * ==============================
- * Professional real estate property detail view with:
- * • Optimized performance and code organization
- * • Enhanced user experience with progressive disclosure
- * • Enterprise-grade design patterns and accessibility
- * • Comprehensive error handling and loading states
- * • Mobile-first responsive design with desktop enhancements
- */
-
 import { useState, useEffect, useCallback, useMemo } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Link from "next/link"
@@ -53,7 +42,7 @@ import {
     DialogDescription,
 } from "@/components/ui/dialog"
 
-import InterestForm from "@/components/forms/InterestForm"
+import GenericInterestForm, { createRequestConfig, RequestConfig } from "@/components/forms/InterestForm"
 import { useProperty } from "@/lib/hooks/useProperties"
 import {
     formatPrice,
@@ -86,6 +75,9 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
     const [showInterestForm, setShowInterestForm] = useState(false)
     const [showImageLightbox, setShowImageLightbox] = useState(false)
     const [isFavorite, setIsFavorite] = useState(false)
+    const [formError, setFormError] = useState<any>(null)
+    const [requestConfig, setRequestConfig] = useState<RequestConfig | null>(null)
+
     const propertyData = useMemo(() => {
         if (!property) return null
 
@@ -101,12 +93,14 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
             mainImage: getMainImage(property.images),
         }
     }, [property])
+
     useEffect(() => {
         if (property?.id) {
             const favorites = JSON.parse(localStorage.getItem("favorites") || "[]")
             setIsFavorite(favorites.includes(property.id))
         }
     }, [property?.id])
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (!propertyData?.allImages.length) return
@@ -171,6 +165,26 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
         setIsFavorite(!isFavorite)
 
     }, [property, isFavorite, toast])
+
+    const handleShowInterest = useCallback(() => {
+        if (!property) return
+
+        const config = createRequestConfig('property', property.id)
+        setRequestConfig(config)
+        setFormError(null)
+        setShowInterestForm(true)
+    }, [property])
+
+    const handleFormError = (error: any) => {
+        setFormError(error)
+    }
+
+    const handleFormSuccess = () => {
+        setFormError(null)
+        setShowInterestForm(false)
+        setRequestConfig(null)
+    }
+
     if (loading) {
         return (
             <div className="min-h-screen bg-slate-50">
@@ -207,7 +221,7 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
         <div className="min-h-screen bg-slate-50">
             <Navigation />
 
-            {/* Breadcrumb Navigation */}
+            
             <div className="bg-white border-b border-slate-200 pt-16">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <nav className="flex items-center space-x-2 text-sm text-slate-600">
@@ -226,7 +240,7 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
                 </div>
             </div>
 
-            {/* Hero Section */}
+            
             <PropertyHeroSection
                 property={property}
                 propertyData={propertyData}
@@ -235,7 +249,7 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
                 isFavorite={isFavorite}
             />
 
-            {/* Image Carousel */}
+            
             {propertyData.allImages.length > 0 && (
                 <ImageCarouselSection
                     images={propertyData.allImages}
@@ -247,10 +261,10 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
                 />
             )}
 
-            {/* Main Content */}
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    {/* Property Information */}
+                    
                     <div className="lg:col-span-2 space-y-8">
                         <PropertyOverviewCard property={property} propertyData={propertyData} />
                         <PropertyDescriptionCard description={property.description} />
@@ -261,25 +275,34 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
                         />
                     </div>
 
-                    {/* Sticky Financing Card */}
+                    
                     <div className="lg:col-span-1">
                         <FinancingCard
                             property={property}
-                            onShowInterest={() => setShowInterestForm(true)}
+                            onShowInterest={handleShowInterest}
                             onShare={handleShare}
                         />
                     </div>
                 </div>
             </div>
 
-            {/* Interest Form Modal */}
+            
             <PropertyInterestModal
                 property={property}
+                requestConfig={requestConfig}
                 open={showInterestForm}
-                onOpenChange={setShowInterestForm}
+                onOpenChange={(open) => {
+                    if (!open) {
+                        setShowInterestForm(false)
+                        setFormError(null)
+                        setRequestConfig(null)
+                    }
+                }}
+                onSuccess={handleFormSuccess}
+                onError={handleFormError}
             />
 
-            {/* Image Lightbox Modal */}
+            
             <ImageLightboxModal
                 images={propertyData.allImages}
                 currentIndex={currentImageIndex}
@@ -302,7 +325,7 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
 function PropertyDetailSkeleton() {
     return (
         <div className="pt-16">
-            {/* Hero Skeleton */}
+            
             <div className="bg-white border-b border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                     <Skeleton className="h-4 w-96 mb-4" />
@@ -311,7 +334,7 @@ function PropertyDetailSkeleton() {
 
             <div className="h-96 bg-slate-200 animate-pulse" />
 
-            {/* Content Skeleton */}
+            
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
                     <div className="lg:col-span-2 space-y-8">
@@ -411,7 +434,7 @@ function PropertyHeroSection({
 }) {
     return (
         <section className="relative bg-slate-900 overflow-hidden">
-            {/* Background Image */}
+            
             <div className="absolute inset-0">
                 <LazyImage
                     src={propertyData.mainImage}
@@ -423,10 +446,10 @@ function PropertyHeroSection({
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-900/80 via-slate-900/50 to-transparent" />
             </div>
 
-            {/* Content */}
+            
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="py-16 lg:py-24">
-                    {/* Navigation */}
+                    
                     <div className="flex items-center justify-between mb-8">
                         <button
                             onClick={onGoBack}
@@ -438,7 +461,7 @@ function PropertyHeroSection({
 
                     </div>
 
-                    {/* Property Info */}
+                    
                     <div className="max-w-2xl">
                         <div className="flex flex-wrap items-center gap-3 mb-4">
                             <Badge className="bg-blue-600 text-white font-medium px-3 py-1">
@@ -485,7 +508,7 @@ function ImageCarouselSection({
 
     return (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            {/* Main Carousel */}
+            
             <div className="relative overflow-hidden rounded-2xl shadow-2xl mb-6">
                 <div className="relative h-96 sm:h-[500px] lg:h-[600px]">
                     <LazyImage
@@ -495,7 +518,7 @@ function ImageCarouselSection({
                         className="object-cover"
                     />
 
-                    {/* Navigation Arrows */}
+                    
                     {images.length > 1 && (
                         <>
                             <CarouselArrow
@@ -511,7 +534,7 @@ function ImageCarouselSection({
                         </>
                     )}
 
-                    {/* Image Counter & Lightbox Button */}
+                    
                     <div className="absolute top-4 right-4 flex items-center gap-2">
                         <Badge className="bg-black/70 text-white font-medium">
                             {currentIndex + 1} / {images.length}
@@ -526,7 +549,7 @@ function ImageCarouselSection({
                         </Button>
                     </div>
 
-                    {/* Dot Indicators */}
+                    
                     {images.length > 1 && (
                         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex gap-2">
                             {images.map((_, index) => (
@@ -545,7 +568,7 @@ function ImageCarouselSection({
                 </div>
             </div>
 
-            {/* Thumbnail Navigation */}
+            
             {images.length > 1 && (
                 <div className="flex gap-3 overflow-x-auto pb-2">
                     {images.map((image, index) => (
@@ -753,7 +776,7 @@ function FinancingCard({
                 </CardHeader>
 
                 <CardContent className="space-y-6">
-                    {/* Price breakdown */}
+                    
                     <div className="space-y-3">
                         <FinancialLineItem label="Loyer mensuel" value={formatPrice(property)} highlight />
                         <FinancialLineItem label="Charges" value={formatCharges(property)} />
@@ -768,7 +791,7 @@ function FinancingCard({
                         </div>
                     </div>
 
-                    {/* CTA buttons */}
+                    
                     <div className="space-y-3">
                         <Button
                             onClick={onShowInterest}
@@ -789,7 +812,7 @@ function FinancingCard({
                         </Button>
                     </div>
 
-                    {/* Service promise */}
+                    
                     <div className="text-center pt-4 border-t border-slate-100">
                         <div className="flex items-center justify-center gap-2 text-green-600 mb-2">
                             <CheckCircle size={16} /> <span className="text-sm font-medium">Réponse sous 24 h</span>
@@ -831,12 +854,18 @@ function FinancialLineItem({
 
 function PropertyInterestModal({
                                    property,
+                                   requestConfig,
                                    open,
                                    onOpenChange,
+                                   onSuccess,
+                                   onError,
                                }: {
     property: Property
+    requestConfig: RequestConfig | null
     open: boolean
     onOpenChange: (o: boolean) => void
+    onSuccess: () => void
+    onError: (error: any) => void
 }) {
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
@@ -844,17 +873,21 @@ function PropertyInterestModal({
                 className="sm:max-w-md max-h-[90vh] overflow-y-auto bg-white border shadow-2xl"
             >
                 <DialogHeader>
-                    <DialogTitle>Manifester mon intérêt</DialogTitle>
+                    <DialogTitle>
+                        {requestConfig?.titleText || "Manifester mon intérêt"}
+                    </DialogTitle>
                     <DialogDescription>
-                        Remplissez ce formulaire pour recevoir plus d’informations sur ce bien immobilier.
+                        Remplissez ce formulaire pour recevoir plus d'informations sur ce bien immobilier.
                     </DialogDescription>
                 </DialogHeader>
 
-                {/* ✅ form now renders at full opacity */}
-                <InterestForm
-                    propertyId={property.id}
-                    onSuccess={() => onOpenChange(false)}
-                />
+                {requestConfig && (
+                    <GenericInterestForm
+                        config={requestConfig}
+                        onSuccess={onSuccess}
+                        onError={onError}
+                    />
+                )}
             </DialogContent>
         </Dialog>
     )
@@ -888,7 +921,7 @@ function ImageLightboxModal({
                         className="object-contain"
                     />
 
-                    {/* Navigation */}
+                    
                     {images.length > 1 && (
                         <>
                             <CarouselArrow
@@ -904,7 +937,7 @@ function ImageLightboxModal({
                         </>
                     )}
 
-                    {/* Header */}
+                    
                     <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-white">
                         <div>
                             <Badge className="bg-black/70 text-white">
