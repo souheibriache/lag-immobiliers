@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =====================
+   LAG HOLDING DESIGN SYSTEM
+   ===================== */
+@layer base {
+  :root {
+    --brand-primary: 154 29% 42%; /* #577C65 */
+    --brand-secondary: 140 39% 64%; /* #9ABEA3 */
+    --brand-accent: 123 54% 75%; /* #C9E4BE */
+    --brand: 154 29% 42%;         /* #577C65 */
+    --brand-light: 140 44% 64%;   /* #93C1A2 */
+    --brand-dark: 154 35% 32%;    /* #426349 */
+    --radius: 0.75rem;
+  }
+
+  html {
+    @apply scroll-smooth;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  }
+
+  body {font-family: var(--font-sans), system-ui, sans-serif;}
+  h1,h2,h3,h4,h5,h6 {font-family: var(--font-display), Georgia, serif;}
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-playfair), Georgia, serif;
+    @apply tracking-tight text-slate-900;
+  }
+}
+
+/* Enhanced Button System with Better Hover States */
+.btn-primary {
+  @apply bg-[hsl(var(--brand))] text-white hover:bg-[hsl(var(--brand-dark))]
+  focus:bg-[hsl(var(--brand-dark))] active:bg-[hsl(var(--brand-dark))]
+  transition-all duration-200 shadow-md hover:shadow-lg;
+}
+
+.btn-secondary {
+  @apply border border-[hsl(var(--brand))] bg-white text-[hsl(var(--brand))]
+  hover:bg-[hsl(var(--brand))] hover:text-white
+  focus:bg-[hsl(var(--brand))] focus:text-white
+  transition-all duration-200;
+}
+
+.btn-outline {
+  @apply border border-slate-200 bg-white text-slate-700
+  hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-accent))]/10
+  focus:border-[hsl(var(--brand))] focus:text-[hsl(var(--brand))]
+  transition-all duration-200;
+}
+
+.btn-ghost {
+  @apply bg-transparent text-[hsl(var(--brand))]
+  hover:bg-[hsl(var(--brand-accent))]/20 hover:text-[hsl(var(--brand-dark))]
+  focus:bg-[hsl(var(--brand-accent))]/20 focus:text-[hsl(var(--brand-dark))]
+  transition-all duration-200;
+}
+
+/* Navigation Button States */
+.nav-link {
+  @apply text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-lg;
+}
+
+.nav-link-scrolled {
+  @apply text-gray-700 hover:text-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-accent))]/10;
+}
+
+.nav-link-transparent {
+  @apply text-white hover:text-[hsl(var(--brand-light))] hover:bg-white/10;
+}
+
+.nav-link-active-scrolled {
+  @apply text-[hsl(var(--brand))] bg-[hsl(var(--brand-accent))]/20;
+}
+
+/* Mobile Menu States */
+.mobile-nav-link {
+  @apply block w-full text-left px-4 py-3 rounded-lg transition-colors duration-200;
+}
+
+.mobile-nav-link-default {
+  @apply text-gray-700 hover:text-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-accent))]/10;
+}
+
+.mobile-nav-link-active {
+  @apply text-[hsl(var(--brand))] bg-[hsl(var(--brand-accent))]/20 font-medium;
+}
+
+/* Property Card Button States */
+.property-btn-view {
+  @apply border-slate-200 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-white transition-colors duration-200;
+}
+
+.property-btn-interest {
+  @apply bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white transition-colors duration-200;
+}
+
+@keyframes float-slow{0%,100%{transform:translateY(-4px)}50%{transform:translateY(4px)}}
+
+/* helpers */
+.section-padding {
+  @apply py-24 md:py-32;
+}
+.section-container {
+  @apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;
+}
+.text-gradient {
+  @apply bg-gradient-to-r from-[#577C65] to-[#9ABEA3] bg-clip-text text-transparent;
+}
+
+/* --- UTILITIES ----------------------------------- */
+.section-padding{@apply py-28 md:py-32;}
+.section-container{@apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;}
+.text-gradient{@apply bg-gradient-to-r from-[hsl(var(--brand))] to-[hsl(var(--brand-light))] bg-clip-text text-transparent;}
+
+/* Badge System */
+.badge-primary {
+  @apply bg-[hsl(var(--brand))] text-white;
+}
+
+.badge-secondary {
+  @apply bg-[hsl(var(--brand-accent))]/20 text-[hsl(var(--brand))] border border-[hsl(var(--brand-light))]/30;
+}
+
+.badge-accent {
+  @apply bg-[hsl(var(--brand-accent))] text-[hsl(var(--brand-dark))];
+}
+
+/* Enhanced Focus States for Accessibility */
+.focus-brand {
+  @apply focus:outline-none focus:ring-2 focus:ring-[hsl(var(--brand))] focus:ring-offset-2;
+}
+
+/* Hover Animations */
+.hover-lift {
+  @apply transition-transform duration-200 hover:scale-105 active:scale-95;
+}
+
+.hover-glow {
+  @apply transition-shadow duration-200 hover:shadow-lg hover:shadow-[hsl(var(--brand))]/20;
+}
