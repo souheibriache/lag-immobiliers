@@ -37,10 +37,7 @@ import {
     formatServicePrice
 } from "@/lib/types/service"
 
-/**
- * Professional Service Detail Page Component
- * Displays comprehensive service information based on backend data structure
- */
+
 export default function ServiceDetailPage({ params }: { params: { slug: string } }) {
     const router = useRouter()
     const { service, loading, error } = useService(params.slug)
@@ -148,7 +145,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
             <Navigation />
 
             <main className="flex-1 pt-16">
-                {/* Breadcrumb Navigation */}
+
                 <div className="bg-white border-b border-slate-200">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
                         <nav className="flex items-center gap-2 text-sm text-slate-600">
@@ -165,7 +162,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </div>
                 </div>
 
-                {/* Hero Section */}
+
                 <section className="bg-white">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
                         <div className="flex items-center gap-4 mb-8">
@@ -238,13 +235,13 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                     </div>
                 </section>
 
-                {/* Content Section */}
+
                 <section className="py-16">
                     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                         <div className="grid lg:grid-cols-3 gap-12">
-                            {/* Main Content */}
+
                             <div className="lg:col-span-2">
-                                {/* Service Description */}
+
                                 <div className="mb-12">
                                     <h2 className="text-2xl font-semibold text-slate-900 mb-6">
                                         Description détaillée du service
@@ -256,7 +253,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                                     </div>
                                 </div>
 
-                                {/* Service Characteristics */}
+
                                 {hasCharacteristics && (
                                     <div className="mb-12">
                                         <h2 className="text-2xl font-semibold text-slate-900 mb-6">
@@ -282,9 +279,9 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
 
                             </div>
 
-                            {/* Sidebar */}
+
                             <div className="space-y-8">
-                                {/* Service Summary Card */}
+
                                 <Card className="border-[hsl(var(--brand-light))] shadow-lg sticky top-8">
                                     <CardContent className="p-6">
                                         <div className="text-center mb-6">
@@ -332,7 +329,7 @@ export default function ServiceDetailPage({ params }: { params: { slug: string }
                 </section>
             </main>
             <Footer />
-            {/* Updated Interest Form Modal */}
+
             <Dialog
                 open={!!selectedService && !!requestConfig}
                 onOpenChange={(open) => {

@@ -88,26 +88,22 @@ function PropertyCard({
           }}
           transition={{ type: "spring", stiffness: 220, damping: 24 }}
       >
-        <article className="group relative rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-[hsl(var(--brand))] focus:outline-none">
+        <article
+            className="group relative rounded-2xl overflow-hidden shadow-lg bg-white hover:shadow-xl transition-all duration-300 focus:ring-2 focus:ring-[hsl(var(--brand))] focus:outline-none cursor-pointer"
+            onClick={onViewDetails}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault()
+                onViewDetails()
+              }
+            }}
+            role="button"
+            tabIndex={0}
+            aria-label={`Voir les détails de ${property.title}`}
+        >
 
-          {/* Click Handler for Card */}
-          <div
-              className="absolute inset-0 cursor-pointer"
-              style={{ zIndex: 1 }}
-              onClick={onViewDetails}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  onViewDetails()
-                }
-              }}
-              role="button"
-              tabIndex={0}
-              aria-label={`Voir les détails de ${property.title}`}
-          />
 
-          {/* Image Container */}
-          <div className="relative h-64 overflow-hidden" style={{ zIndex: 2 }}>
+          <div className="relative h-64 overflow-hidden">
             <LazyImage
                 src={mainImage}
                 alt={property.title}
@@ -118,15 +114,15 @@ function PropertyCard({
 
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-black/20" />
 
-            <div className="absolute top-4 left-4" style={{ zIndex: 3 }}>
+            <div className="absolute top-4 left-4">
               <Badge className="bg-white/90 text-slate-800 font-medium shadow-sm">
                 {details.type}
               </Badge>
             </div>
 
-            {/* Featured Badge */}
+
             {property.isFeatured && (
-                <div className="absolute top-4 right-4" style={{ zIndex: 3 }}>
+                <div className="absolute top-4 right-4">
                   <Badge className="bg-[hsl(var(--brand))] text-white font-medium shadow-sm">
                     <Star className="w-3 h-3 mr-1" />
                     En vedette
@@ -135,10 +131,10 @@ function PropertyCard({
             )}
           </div>
 
-          {/* Content Container */}
-          <div className="relative p-6" style={{ zIndex: 2 }}>
 
-            {/* Title and Location */}
+          <div className="relative p-6">
+
+
             <div className="mb-4">
               <h3 className="text-lg font-semibold text-slate-900 leading-tight line-clamp-2 mb-2 group-hover:text-[hsl(var(--brand))] transition-colors">
                 {property.title}
@@ -152,14 +148,14 @@ function PropertyCard({
               )}
             </div>
 
-            {/* Price */}
+
             <div className="mb-4">
             <span className="text-2xl font-bold text-[hsl(var(--brand))]">
               {formatPrice(property)}
             </span>
             </div>
 
-            {/* Property Details */}
+
             {details.hasBasicInfo && (
                 <div className="mb-6">
                   <div className="flex items-center justify-between text-sm">
@@ -187,8 +183,8 @@ function PropertyCard({
                 </div>
             )}
 
-            {/* Action Buttons - positioned above overlay */}
-            <div className="flex gap-3 relative" style={{ zIndex: 10 }}>
+
+            <div className="flex gap-3 relative z-10">
               <Button
                   size="sm"
                   variant="outline"
@@ -222,9 +218,7 @@ function PropertyCard({
   )
 }
 
-/**
- * Enhanced Properties Carousel Component
- */
+
 export default function PropertiesSection() {
   const { properties, loading, error } = useFeaturedProperties(10)
   const { expressInterest } = usePropertyInteractions()
@@ -337,7 +331,7 @@ export default function PropertiesSection() {
               ))}
             </motion.ul>
 
-            {/* Navigation Arrows */}
+
             <button
                 aria-label="Bien précédent"
                 onClick={() => setIndex((i) => (i - 1 + properties.length) % properties.length)}
@@ -354,7 +348,7 @@ export default function PropertiesSection() {
               <ChevronRight className="w-6 h-6 text-slate-700" />
             </button>
 
-            {/* Dot Indicators */}
+
             <div className="mt-12 flex justify-center gap-3">
               {properties.map((_, b) => (
                   <button
@@ -371,7 +365,7 @@ export default function PropertiesSection() {
             </div>
           </div>
 
-          {/* Call to Action */}
+
           <div className="mt-16 text-center">
             <Button
                 size="lg"
@@ -384,7 +378,7 @@ export default function PropertiesSection() {
           </div>
         </div>
 
-        {/* Interest Form Modal */}
+
         <Dialog
             open={!!selectedProperty && !!requestConfig}
             onOpenChange={(open) => {

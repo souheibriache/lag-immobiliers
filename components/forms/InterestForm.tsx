@@ -19,11 +19,6 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { DialogFooter, DialogClose } from "@/components/ui/dialog"
 
-/**
- * -------------------------------------------------------------
- *  Types
- * -------------------------------------------------------------
- */
 interface BasePayload {
     firstName: string
     lastName: string
@@ -65,11 +60,6 @@ interface GenericInterestFormProps {
     onError?: (error: FormError) => void
 }
 
-/**
- * -------------------------------------------------------------
- *  Configuration Factory
- * -------------------------------------------------------------
- */
 const createRequestConfig = (type: RequestType, id: string): RequestConfig => {
     const baseUrl = "https://lag-immobiliers-api.souheib-riache.fr/api/v1"
 
@@ -97,26 +87,13 @@ const createRequestConfig = (type: RequestType, id: string): RequestConfig => {
     }
 }
 
-/**
- * -------------------------------------------------------------
- *  Generic Interest Form
- *  – psychologically‑optimised, business‑grade contact funnel –
- * -------------------------------------------------------------
- */
 export default function GenericInterestForm({
                                                 config,
                                                 onSuccess,
                                                 onError,
                                             }: GenericInterestFormProps) {
-    /* -----------------------------------------------------------
-     *  Local state
-     * ---------------------------------------------------------*/
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle")
     const [errorMessage, setErrorMessage] = useState<string>("")
-
-    /* -----------------------------------------------------------
-     *  React‑Hook‑Form setup
-     * ---------------------------------------------------------*/
     const {
         register,
         handleSubmit,
@@ -133,9 +110,6 @@ export default function GenericInterestForm({
         },
     })
 
-    /* -----------------------------------------------------------
-     *  Validation rules (fr‑FR)
-     * ---------------------------------------------------------*/
     const validation = {
         firstName: {
             required: "Le prénom est requis",
@@ -163,9 +137,6 @@ export default function GenericInterestForm({
         },
     }
 
-    /* -----------------------------------------------------------
-     *  Build payload based on request type
-     * ---------------------------------------------------------*/
     const buildPayload = (formData: BasePayload): InterestPayload => {
         switch (config.type) {
             case 'property':
@@ -183,9 +154,6 @@ export default function GenericInterestForm({
         }
     }
 
-    /* -----------------------------------------------------------
-     *  Submit handler with enhanced error handling
-     * ---------------------------------------------------------*/
     const onSubmit = async (formData: BasePayload) => {
         try {
             setStatus("loading")
@@ -243,9 +211,6 @@ export default function GenericInterestForm({
         }
     }
 
-    /* -----------------------------------------------------------
-     *  Success view – reassuring, trust‑building message
-     * ---------------------------------------------------------*/
     if (status === "success") {
         return (
             <motion.div
@@ -264,14 +229,11 @@ export default function GenericInterestForm({
         )
     }
 
-    /* -----------------------------------------------------------
-     *  Main form UI
-     * ---------------------------------------------------------*/
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
-            {/* Personal information */}
+
             <section className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/** First name */}
+
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="firstName" className="flex items-center gap-1">
                         <User className="w-4 h-4" /> Prénom <span className="text-red-500">*</span>
@@ -285,7 +247,7 @@ export default function GenericInterestForm({
                     <FieldError message={errors.firstName?.message} />
                 </div>
 
-                {/** Last name */}
+
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="lastName" className="flex items-center gap-1">
                         <User className="w-4 h-4" /> Nom <span className="text-red-500">*</span>
@@ -299,7 +261,7 @@ export default function GenericInterestForm({
                     <FieldError message={errors.lastName?.message} />
                 </div>
 
-                {/** Email */}
+
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="email" className="flex items-center gap-1">
                         <Mail className="w-4 h-4" /> E‑mail <span className="text-red-500">*</span>
@@ -314,7 +276,7 @@ export default function GenericInterestForm({
                     <FieldError message={errors.email?.message} />
                 </div>
 
-                {/** Phone */}
+
                 <div className="flex flex-col gap-1">
                     <Label htmlFor="phoneNumber" className="flex items-center gap-1">
                         <Phone className="w-4 h-4" /> Téléphone <span className="text-red-500">*</span>
@@ -330,7 +292,7 @@ export default function GenericInterestForm({
                 </div>
             </section>
 
-            {/* Message */}
+
             <section className="space-y-1">
                 <Label htmlFor="message" className="flex items-center gap-1">
                     <MessageSquare className="w-4 h-4" /> Message
@@ -348,7 +310,7 @@ export default function GenericInterestForm({
                 </p>
             </section>
 
-            {/* Global error for non-400 errors */}
+
             <AnimatePresence>
                 {status === "error" && (
                     <motion.div
@@ -363,13 +325,13 @@ export default function GenericInterestForm({
                 )}
             </AnimatePresence>
 
-            {/* GDPR / trust note */}
+
             <div className="flex items-center gap-2 text-xs text-muted-foreground border border-dashed rounded-md p-2 bg-muted/50">
                 <ShieldCheck className="w-4 h-4 flex-shrink-0 text-primary" />
                 Vos informations restent strictement confidentielles et ne seront jamais partagées sans votre accord.
             </div>
 
-            {/* Footer with actions */}
+
             <DialogFooter className="pt-6 border-t">
                 <DialogClose asChild>
                     <Button
@@ -399,9 +361,7 @@ export default function GenericInterestForm({
     )
 }
 
-/* -------------------------------------------------------------
- *  Helper – single animated field error
- * -----------------------------------------------------------*/
+
 function FieldError({ message }: { message?: string }) {
     return (
         <AnimatePresence>
@@ -419,8 +379,6 @@ function FieldError({ message }: { message?: string }) {
     )
 }
 
-/* -------------------------------------------------------------
- *  Export the factory function for convenience
- * -----------------------------------------------------------*/
+
 export { createRequestConfig }
 export type { RequestConfig, RequestType }

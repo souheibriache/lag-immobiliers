@@ -3,9 +3,7 @@
 
 import type { Property, PropertyCharacteristic } from "@/lib/api/properties"
 
-/**
- * Format the monthly rent (or display a fallback).
- */
+
 export function formatPrice(property: Property | null | undefined): string {
   if (!property || !property.price || property.price.monthlyPrice === undefined) {
     return "Prix non disponible"
@@ -13,7 +11,7 @@ export function formatPrice(property: Property | null | undefined): string {
   return `${property.price.monthlyPrice}€/mois`
 }
 
-/** Format supplementary monthly charges. */
+
 export function formatCharges(property: Property | null | undefined): string {
   if (!property || !property.price || property.price.chargesPrice === undefined) {
     return "Charges non disponibles"
@@ -21,7 +19,7 @@ export function formatCharges(property: Property | null | undefined): string {
   return `${property.price.chargesPrice}€/mois`
 }
 
-/** Format refundable security deposit. */
+
 export function formatDeposit(property: Property | null | undefined): string {
   if (!property || !property.price || property.price.firstDepositPrice === undefined) {
     return "Dépôt non disponible"
@@ -29,7 +27,7 @@ export function formatDeposit(property: Property | null | undefined): string {
   return `${property.price.firstDepositPrice}€`
 }
 
-/** Format application / dossier fees. */
+
 export function formatApplicationFees(property: Property | null | undefined): string {
   if (!property || !property.price || property.price.dossierPrice === undefined) {
     return "Frais non disponibles"
@@ -139,11 +137,7 @@ export function getPropertyRooms(characteristics: PropertyCharacteristic[] | und
   return v || "N/A"
 }
 
-/**
- * Extract a list of “features” suitable for badges.
- * Definition: a characteristic whose value is truthy (not “non”, “no”, "false", 0)…
- * and whose name is not purely numeric‑driven (e.g., we exclude Chambre, Surface, etc.).
- */
+
 export function getPropertyFeatures(
     characteristics: PropertyCharacteristic[] | undefined | null,
 ): string[] {

@@ -2,17 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-/* =====================
-   LAG HOLDING DESIGN SYSTEM
-   ===================== */
+
 @layer base {
   :root {
-    --brand-primary: 154 29% 42%; /* #577C65 */
-    --brand-secondary: 140 39% 64%; /* #9ABEA3 */
-    --brand-accent: 123 54% 75%; /* #C9E4BE */
-    --brand: 154 29% 42%;         /* #577C65 */
-    --brand-light: 140 44% 64%;   /* #93C1A2 */
-    --brand-dark: 154 35% 32%;    /* #426349 */
+    --brand-primary: 154 29% 42%;
+    --brand-secondary: 140 39% 64%;
+    --brand-accent: 123 54% 75%;
+    --brand: 154 29% 42%;
+    --brand-light: 140 44% 64%;
+    --brand-dark: 154 35% 32%;
     --radius: 0.75rem;
   }
 
@@ -35,7 +33,7 @@
   }
 }
 
-/* Enhanced Button System with Better Hover States */
+
 .btn-primary {
   @apply bg-[hsl(var(--brand))] text-white hover:bg-[hsl(var(--brand-dark))]
   focus:bg-[hsl(var(--brand-dark))] active:bg-[hsl(var(--brand-dark))]
@@ -63,7 +61,7 @@
   transition-all duration-200;
 }
 
-/* Navigation Button States */
+
 .nav-link {
   @apply text-sm font-medium transition-colors duration-200 px-4 py-2 rounded-lg;
 }
@@ -80,7 +78,7 @@
   @apply text-[hsl(var(--brand))] bg-[hsl(var(--brand-accent))]/20;
 }
 
-/* Mobile Menu States */
+
 .mobile-nav-link {
   @apply block w-full text-left px-4 py-3 rounded-lg transition-colors duration-200;
 }
@@ -93,7 +91,7 @@
   @apply text-[hsl(var(--brand))] bg-[hsl(var(--brand-accent))]/20 font-medium;
 }
 
-/* Property Card Button States */
+
 .property-btn-view {
   @apply border-slate-200 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-white transition-colors duration-200;
 }
@@ -104,7 +102,7 @@
 
 @keyframes float-slow{0%,100%{transform:translateY(-4px)}50%{transform:translateY(4px)}}
 
-/* helpers */
+
 .section-padding {
   @apply py-24 md:py-32;
 }
@@ -115,12 +113,12 @@
   @apply bg-gradient-to-r from-[#577C65] to-[#9ABEA3] bg-clip-text text-transparent;
 }
 
-/* --- UTILITIES ----------------------------------- */
+
 .section-padding{@apply py-28 md:py-32;}
 .section-container{@apply mx-auto max-w-7xl px-4 sm:px-6 lg:px-8;}
 .text-gradient{@apply bg-gradient-to-r from-[hsl(var(--brand))] to-[hsl(var(--brand-light))] bg-clip-text text-transparent;}
 
-/* Badge System */
+
 .badge-primary {
   @apply bg-[hsl(var(--brand))] text-white;
 }
@@ -133,7 +131,7 @@
   @apply bg-[hsl(var(--brand-accent))] text-[hsl(var(--brand-dark))];
 }
 
-/* Enhanced Focus States for Accessibility */
+
 .focus-brand {
   @apply focus:outline-none focus:ring-2 focus:ring-[hsl(var(--brand))] focus:ring-offset-2;
 }

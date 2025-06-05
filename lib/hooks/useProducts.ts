@@ -3,10 +3,7 @@
 import { useState, useEffect } from "react";
 import { productAPI, type Product } from "@/lib/api/products";
 
-/**
- * Hook to fetch all products from the API
- * This replaces the previous useProductsByType approach with a single API call
- */
+
 export function useAllProducts() {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
@@ -35,9 +32,7 @@ export function useAllProducts() {
     return { products, loading, error };
 }
 
-/**
- * Hook to fetch a specific product by ID
- */
+
 export function useProduct(id: string) {
     const [product, setProduct] = useState<Product | null>(null);
     const [loading, setLoading] = useState(true);
@@ -71,9 +66,7 @@ export function useProduct(id: string) {
     return { product, loading, error };
 }
 
-/**
- * Hook to fetch featured products
- */
+
 export function useFeaturedProducts(limit = 6) {
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
@@ -102,10 +95,7 @@ export function useFeaturedProducts(limit = 6) {
     return { products, loading, error };
 }
 
-/**
- * Legacy hook for backward compatibility - now uses client-side filtering
- * @deprecated Use useAllProducts with client-side filtering instead
- */
+
 export function useProductsByType(type: Product['type']) {
     const { products: allProducts, loading, error } = useAllProducts();
 

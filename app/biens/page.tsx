@@ -1,17 +1,6 @@
 "use client"
 
-/**
- * -------------------------------------------------------------
- *  Enhanced AllPropertiesPage – enterprise-grade property catalogue
- * -------------------------------------------------------------
- *  ‣ Professional design with enhanced information hierarchy
- *  ‣ Improved data handling with proper fallbacks
- *  ‣ Enhanced filter UX with visual feedback
- *  ‣ Enterprise-scale typography and spacing
- *  ‣ Optimized for professional real estate operations
- *  ‣ Consistent brand color integration
- * -------------------------------------------------------------
- */
+
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -65,9 +54,7 @@ import {
 import type { Property } from "@/lib/types/property"
 import { PropertyFilters } from "@/lib/api/properties"
 
-/* ------------------------------------------------------------
- *  Enhanced Data Extraction with Proper Fallbacks
- * -----------------------------------------------------------*/
+
 const getEnhancedPropertyDetails = (property: Property) => {
   const beds = getPropertyBeds(property?.characteristics)
   const baths = getPropertyBaths(property?.characteristics)
@@ -87,9 +74,7 @@ const getEnhancedPropertyDetails = (property: Property) => {
   }
 }
 
-/* ------------------------------------------------------------
- *  Enhanced Constants
- * -----------------------------------------------------------*/
+
 const PROPERTY_TYPES = [
   { label: "Tous les types", value: "" },
   { label: "Studio", value: "Studio" },
@@ -116,9 +101,7 @@ const SORT_OPTIONS = [
   { label: "Superficie", value: "area" },
 ]
 
-/* ------------------------------------------------------------
- *  Enhanced Page Component
- * -----------------------------------------------------------*/
+
 export default function AllPropertiesPage() {
   const [filters, setFilters] = useState<PropertyFilters>({ page: 1, limit: 12 })
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
@@ -149,7 +132,7 @@ export default function AllPropertiesPage() {
         <Navigation />
 
         <main className="flex-1 pt-16">
-          {/* Professional Header Section */}
+
           <header className="bg-white border-b border-slate-200 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="py-8">
@@ -199,11 +182,11 @@ export default function AllPropertiesPage() {
             </div>
           </header>
 
-          {/* Enhanced Filter System */}
+
           <div className="bg-white border-b border-slate-200 sticky top-16 z-20 shadow-sm">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="py-6">
-                {/* Primary Filters Row */}
+
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
                   <div className="relative md:col-span-2">
                     <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" size={20} />
@@ -251,7 +234,7 @@ export default function AllPropertiesPage() {
                   </select>
                 </div>
 
-                {/* Results Info & Controls */}
+
                 <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                   <div className="flex items-center gap-6">
                     <div className="flex items-center gap-2">
@@ -326,10 +309,10 @@ export default function AllPropertiesPage() {
             </div>
           </div>
 
-          {/* Main Content Area */}
+
           <section className="py-8">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-              {/* Error State */}
+
               {error && (
                   <div className="text-center py-20 max-w-lg mx-auto">
                     <div className="w-16 h-16 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -346,7 +329,7 @@ export default function AllPropertiesPage() {
                   </div>
               )}
 
-              {/* Loading State */}
+
               {loading && (
                   <div className={
                     viewMode === "grid"
@@ -371,7 +354,7 @@ export default function AllPropertiesPage() {
                   </div>
               )}
 
-              {/* Properties Display */}
+
               {!loading && data && data.items.length > 0 && (
                   <>
                     {viewMode === "grid" ? (
@@ -396,7 +379,7 @@ export default function AllPropertiesPage() {
                         </div>
                     )}
 
-                    {/* Enhanced Pagination */}
+
                     {data.total > data.take && (
                         <EnhancedPagination
                             page={data.page}
@@ -408,7 +391,7 @@ export default function AllPropertiesPage() {
                   </>
               )}
 
-              {/* Enhanced Empty State */}
+
               {!loading && data && data.items.length === 0 && (
                   <div className="text-center py-20">
                     <div className="w-20 h-20 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-8">
@@ -445,9 +428,7 @@ export default function AllPropertiesPage() {
   )
 }
 
-/* ------------------------------------------------------------
- *  Enhanced Property Card Component
- * -----------------------------------------------------------*/
+
 interface CardProps {
   property: Property
   onClick: () => void
@@ -461,7 +442,7 @@ function EnhancedPropertyCard({ property, onClick }: CardProps) {
           className="group cursor-pointer overflow-hidden border-slate-200 hover:border-[hsl(var(--brand-light))] hover:shadow-xl transition-all duration-300 bg-white"
           onClick={onClick}
       >
-        {/* Image Section */}
+
         <div className="relative overflow-hidden">
           <LazyImage
               src={details.mainImage}
@@ -471,31 +452,31 @@ function EnhancedPropertyCard({ property, onClick }: CardProps) {
               height={224}
           />
 
-          {/* Image Overlays */}
+
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
 
-          {/* Price Badge */}
+
           <div className="absolute top-4 left-4">
             <Badge className="bg-white text-slate-900 font-bold px-3 py-2 shadow-lg">
               {formatPrice(property)}
             </Badge>
           </div>
 
-          {/*/!* Premium Badge *!/*/}
-          {/*{property.isFeatured && (*/}
-          {/*    <div className="absolute top-4 right-4">*/}
-          {/*      <Badge className="bg-gradient-to-r from-amber-500 to-amber-600 text-white font-medium px-3 py-2 shadow-lg">*/}
-          {/*        <Star className="w-3 h-3 mr-1 fill-current" />*/}
-          {/*        Premium*/}
-          {/*      </Badge>*/}
-          {/*    </div>*/}
-          {/*)}*/}
+
+
+
+
+
+
+
+
+
         </div>
 
-        {/* Content Section */}
+
         <CardContent className="p-6">
           <div className="space-y-4">
-            {/* Title and Location */}
+
             <div>
               <h3 className="font-semibold text-lg text-slate-900 mb-2 line-clamp-2 group-hover:text-[hsl(var(--brand))] transition-colors leading-tight">
                 {property.title}
@@ -508,7 +489,7 @@ function EnhancedPropertyCard({ property, onClick }: CardProps) {
               )}
             </div>
 
-            {/* Property Stats */}
+
             {details.hasBasicInfo && (
                 <div className="bg-slate-50 rounded-xl p-4">
                   <div className="grid grid-cols-3 gap-3">
@@ -537,7 +518,7 @@ function EnhancedPropertyCard({ property, onClick }: CardProps) {
                 </div>
             )}
 
-            {/* Property Type and Action Button */}
+
             <div className="flex items-center justify-between">
               <Badge variant="outline" className="bg-[hsl(var(--brand-accent))]/10 text-[hsl(var(--brand))] border-[hsl(var(--brand-light))]">
                 {details.type}
@@ -560,9 +541,7 @@ function EnhancedPropertyCard({ property, onClick }: CardProps) {
   )
 }
 
-/* ------------------------------------------------------------
- *  Enhanced Property Row Component
- * -----------------------------------------------------------*/
+
 function EnhancedPropertyRow({ property, onClick }: CardProps) {
   const details = getEnhancedPropertyDetails(property)
 
@@ -574,7 +553,7 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
           className="flex overflow-hidden cursor-pointer group border-slate-200 hover:border-[hsl(var(--brand-light))] hover:shadow-xl transition-all duration-300 bg-white"
           onClick={onClick}
       >
-        {/* Image Section */}
+
         <div className="relative w-80 flex-shrink-0 overflow-hidden">
           <LazyImage
               src={details.mainImage}
@@ -592,31 +571,31 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
             </Badge>
           </div>
 
-          {/*{property.isFeatured && (*/}
-          {/*    <div className="absolute top-4 right-4">*/}
-          {/*      <Badge className="bg-gradient-to-r from-amber-500 to-amber-600 text-white font-medium px-3 py-2 shadow-lg">*/}
-          {/*        <Star className="w-3 h-3 mr-1 fill-current" />*/}
-          {/*        Premium*/}
-          {/*      </Badge>*/}
-          {/*    </div>*/}
-          {/*)}*/}
+
+
+
+
+
+
+
+
         </div>
 
-        {/* Content Section */}
+
         <CardContent className="flex-1 p-8 flex flex-col justify-between">
           <div className="space-y-4">
-            {/* Header */}
+
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <Badge variant="outline" className="bg-[hsl(var(--brand-accent))]/10 text-[hsl(var(--brand))] border-[hsl(var(--brand-light))]">
                     {details.type}
                   </Badge>
-                  {/*{property.isFeatured && (*/}
-                  {/*    <Badge className="bg-gradient-to-r from-amber-500 to-amber-600 text-white font-medium">*/}
-                  {/*      Premium*/}
-                  {/*    </Badge>*/}
-                  {/*)}*/}
+
+
+
+
+
                 </div>
 
                 <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-[hsl(var(--brand))] transition-colors leading-tight">
@@ -632,12 +611,12 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
               </div>
             </div>
 
-            {/* Description */}
+
             <p className="text-slate-600 leading-relaxed line-clamp-2">
               {truncateText(property.description, 200)}
             </p>
 
-            {/* Features */}
+
             {details.features.length > 0 && (
                 <div className="flex flex-wrap gap-2">
                   {details.features.slice(0, 4).map((feature, index) => (
@@ -658,9 +637,9 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
             )}
           </div>
 
-          {/* Footer */}
+
           <div className="flex items-center justify-between pt-6 border-t border-slate-100">
-            {/* Property Stats */}
+
             {details.hasBasicInfo && (
                 <div className="flex gap-8">
                   {details.beds && (
@@ -687,7 +666,7 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
                 </div>
             )}
 
-            {/* Action Button */}
+
             <Button
                 size="sm"
                 className="bg-[hsl(var(--brand))] text-white px-6 hover:bg-[hsl(var(--brand-dark))] focus:bg-[hsl(var(--brand-dark))] focus:ring-2 focus:ring-[hsl(var(--brand))]/20"
@@ -705,9 +684,7 @@ function EnhancedPropertyRow({ property, onClick }: CardProps) {
   )
 }
 
-/* ------------------------------------------------------------
- *  Property Stat Component
- * -----------------------------------------------------------*/
+
 function PropertyStat({
                         icon: Icon,
                         value,
@@ -728,9 +705,7 @@ function PropertyStat({
   )
 }
 
-/* ------------------------------------------------------------
- *  Enhanced Pagination Component
- * -----------------------------------------------------------*/
+
 function EnhancedPagination({
                               page,
                               total,

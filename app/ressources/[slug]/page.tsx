@@ -24,11 +24,7 @@ import Navigation from "@/components/sections/Navigation"
 import Footer from "@/components/sections/Footer"
 import { useProduct } from "@/lib/hooks/useProducts"
 
-/**
- * Resource Detail Page Component
- * Displays comprehensive product/book information based on actual API data structure
- * Handles both PRODUCT and BOOK types with unified presentation
- */
+
 export default function ResourceDetailPage({ params }: { params: { slug: string } }) {
   const router = useRouter()
   const { product, loading, error } = useProduct(params.slug)
@@ -158,7 +154,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
         <Navigation />
 
         <main className="flex-1 pt-16">
-          {/* Breadcrumb Navigation */}
+
           <div className="bg-white border-b border-slate-200">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
               <nav className="flex items-center gap-2 text-sm text-slate-600">
@@ -175,7 +171,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
             </div>
           </div>
 
-          {/* Hero Section */}
+
           <section className="bg-white">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
               <div className="flex items-center gap-4 mb-8">
@@ -216,7 +212,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
                     {product.description}
                   </p>
 
-                  {/* Pricing Section */}
+
                   <div className="flex items-center gap-6 mb-8">
                     <div className="text-center">
                       {hasDiscount(product.discount) && (
@@ -235,7 +231,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
                     </div>
                   </div>
 
-                  {/* Call to Action */}
+
                   {product.link && (
                       <div className="flex gap-4">
                         <Button
@@ -268,13 +264,13 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
             </div>
           </section>
 
-          {/* Content Section */}
+
           <section className="py-16">
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="grid lg:grid-cols-3 gap-12">
-                {/* Main Content */}
+
                 <div className="lg:col-span-2">
-                  {/* Product Description */}
+
                   <div className="mb-12">
                     <h2 className="text-2xl font-semibold text-slate-900 mb-6">
                       Description détaillée
@@ -286,7 +282,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
                     </div>
                   </div>
 
-                  {/* Product Characteristics */}
+
                   {product.characteristics && product.characteristics.length > 0 && (
                       <div className="mb-12">
                         <h2 className="text-2xl font-semibold text-slate-900 mb-6">
@@ -311,9 +307,9 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
                   )}
                 </div>
 
-                {/* Sidebar */}
+
                 <div className="space-y-8">
-                  {/* Resource Summary Card */}
+
                   <Card className="border-[hsl(var(--brand-light))] shadow-lg sticky top-8">
                     <CardContent className="p-6">
                       <div className="text-center mb-6">
@@ -359,7 +355,7 @@ export default function ResourceDetailPage({ params }: { params: { slug: string 
                     </CardContent>
                   </Card>
 
-                  {/* Resource Information */}
+
                   <Card className="border-slate-200 shadow-sm">
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-slate-900 mb-4">

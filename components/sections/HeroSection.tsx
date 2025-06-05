@@ -8,7 +8,7 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 
 export default function HeroSection() {
-  /* headline rotator */
+
   const headlines = [
     "Investissez sereinement,",
     "Optimisez votre patrimoine,",
@@ -20,13 +20,13 @@ export default function HeroSection() {
     return () => clearInterval(t)
   }, [])
 
-  /* scroll shortcut */
+
   const goPortfolio = () =>
       document.getElementById("biens")?.scrollIntoView({ behavior: "smooth" })
 
   return (
       <section className="relative isolate flex min-h-[100svh] items-center justify-center overflow-hidden">
-        {/* Paris background image */}
+
         <div className="absolute inset-0">
           <Image
               src="/paris.jpg"
@@ -35,24 +35,24 @@ export default function HeroSection() {
               priority
               className="object-cover object-center"
           />
-          {/* Enhanced overlay for better text readability */}
+
           <div className="absolute inset-0 bg-gradient-to-br from-slate-900/60 via-slate-800/40 to-slate-900/70" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
         </div>
 
-        {/* Elegant floating elements matching brand */}
+
         <div className="pointer-events-none absolute -top-40 -left-40 h-80 w-80 rounded-full bg-emerald-500/20 blur-3xl animate-pulse" />
         <div className="pointer-events-none absolute -bottom-40 -right-40 h-96 w-96 rounded-full bg-emerald-600/15 blur-3xl animate-pulse [animation-duration:8s]" />
         <div className="pointer-events-none absolute top-1/4 right-1/4 h-64 w-64 rounded-full bg-emerald-400/10 blur-3xl animate-pulse [animation-duration:12s]" />
 
-        {/* Main content */}
+
         <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: "easeOut" }}
             className="relative z-10 mx-auto max-w-4xl px-4 text-center pt-20"
         >
-          {/* LAG Holding Logo */}
+
           <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -69,7 +69,7 @@ export default function HeroSection() {
             />
           </motion.div>
 
-          {/* Premium badge */}
+
           <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -81,7 +81,7 @@ export default function HeroSection() {
             </Badge>
           </motion.div>
 
-          {/* Dynamic headline */}
+
           <motion.h1
               className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4"
               initial={{ opacity: 0, y: 30 }}
@@ -97,7 +97,7 @@ export default function HeroSection() {
             </span>
           </motion.h1>
 
-          {/* Compelling subtitle */}
+
           <motion.p
               className="mx-auto mt-4 max-w-xl text-base md:text-lg text-slate-200 leading-relaxed"
               initial={{ opacity: 0, y: 20 }}
@@ -107,7 +107,7 @@ export default function HeroSection() {
             De la sélection du bien à la gestion locative complète, votre conseiller indépendant vous accompagne pour optimiser votre patrimoine immobilier.
           </motion.p>
 
-          {/* Call to action buttons */}
+
           <motion.div
               className="mt-8 flex flex-col sm:flex-row justify-center gap-3"
               initial={{ opacity: 0, y: 20 }}
@@ -134,7 +134,7 @@ export default function HeroSection() {
             </Button>
           </motion.div>
 
-          {/* Trust indicators */}
+
           <motion.div
               className="mt-10 flex flex-wrap justify-center gap-6"
               initial={{ opacity: 0, y: 30 }}

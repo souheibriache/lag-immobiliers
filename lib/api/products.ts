@@ -202,18 +202,10 @@ const API_CONFIG = {
   }
 }
 
-/**
- * Product API Service - Handles all product-related API calls
- *
- * This service is designed to seamlessly switch between mock data and real API calls.
- * When API_CONFIG.USE_MOCK_DATA is true, it uses the mock data above.
- * When false, it makes actual HTTP requests to your backend.
- */
+
 class ProductAPIService {
 
-  /**
-   * Simulates network delay for realistic development experience
-   */
+
   private async simulateNetworkDelay(min = 300, max = 800): Promise<void> {
     if (API_CONFIG.USE_MOCK_DATA) {
       const delay = Math.random() * (max - min) + min
@@ -221,9 +213,7 @@ class ProductAPIService {
     }
   }
 
-  /**
-   * Makes HTTP request to real API - used when USE_MOCK_DATA is false
-   */
+
   private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
     const url = `${API_CONFIG.BASE_URL}${endpoint}`
 
@@ -242,9 +232,7 @@ class ProductAPIService {
     return response.json()
   }
 
-  /**
-   * Applies filters to mock data - mimics backend filtering logic
-   */
+
   private applyFilters(products: Product[], filters: ProductFilters): Product[] {
     let filtered = [...products]
     if (filters.type) {
@@ -273,9 +261,7 @@ class ProductAPIService {
     return filtered
   }
 
-  /**
-   * Get all products - the main method for fetching products
-   */
+
   async getAllProducts(): Promise<Product[]> {
     await this.simulateNetworkDelay()
 
@@ -285,9 +271,7 @@ class ProductAPIService {
     return this.makeRequest<Product[]>(API_CONFIG.ENDPOINTS.PRODUCTS)
   }
 
-  /**
-   * Get filtered products with pagination support
-   */
+
   async getFilteredProducts(filters: ProductFilters = {}): Promise<PaginatedResponse<Product>> {
     await this.simulateNetworkDelay()
 
@@ -316,9 +300,7 @@ class ProductAPIService {
     return this.makeRequest<PaginatedResponse<Product>>(endpoint)
   }
 
-  /**
-   * Get a single product by ID
-   */
+
   async getProductById(id: string): Promise<Product> {
     await this.simulateNetworkDelay()
 
@@ -333,9 +315,7 @@ class ProductAPIService {
     return this.makeRequest<Product>(API_CONFIG.ENDPOINTS.PRODUCT_BY_ID(id))
   }
 
-  /**
-   * Get featured products - typically used for homepage highlights
-   */
+
   async getFeaturedProducts(limit = 6): Promise<Product[]> {
     const result = await this.getFilteredProducts({
       isFeatured: true,
@@ -344,9 +324,7 @@ class ProductAPIService {
     return result.items
   }
 
-  /**
-   * Get products by type - useful for tab filtering
-   */
+
   async getProductsByType(type: Product['type'], limit?: number): Promise<Product[]> {
     const result = await this.getFilteredProducts({
       type,
@@ -355,9 +333,7 @@ class ProductAPIService {
     return result.items
   }
 
-  /**
-   * Search products by query string
-   */
+
   async searchProducts(query: string, limit = 20): Promise<Product[]> {
     const result = await this.getFilteredProducts({
       search: query,

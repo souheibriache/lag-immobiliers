@@ -318,9 +318,7 @@ export default function PropertyDetailPage({}: PropertyDetailPageProps) {
     )
 }
 
-/* ============================================================================
- * Component Sections
- * ============================================================================ */
+
 
 function PropertyDetailSkeleton() {
     return (

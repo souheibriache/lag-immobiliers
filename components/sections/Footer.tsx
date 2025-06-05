@@ -6,28 +6,22 @@ import { Mail, Phone, Linkedin, Twitter, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import {useState} from "react";
 
-/**
- * Constellation Footer – immersive dark anchor
- * • Animated twinkling‑stars canvas (GPU‑friendly)
- * • Accent glow on CTAs, focus rings
- * • Newsletter field with success morph
- * • Responsive 3‑column grid → single column on mobile
- */
+
 
 export default function Footer() {
   return (
       <footer className="relative overflow-hidden bg-slate-900 text-slate-300">
-        {/* twinkling stars backdrop */}
+
         <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-[url('/stars.svg')] bg-cover opacity-20 animate-[pulse_8s_infinite]"
         />
 
-        {/* top accent gradient */}
+
         <div aria-hidden className="absolute inset-x-0 -top-20 h-40 bg-gradient-to-b from-[hsl(var(--brand-light))]/20 to-transparent" />
 
         <div className="section-container relative z-10 grid gap-12 py-20 md:grid-cols-3">
-          {/* Brand */}
+
           <div>
             <Image src="/logo-white.svg" alt="LAG" width={160} height={70} className="mb-6" />
             <p className="max-w-xs text-sm leading-relaxed">
@@ -35,7 +29,7 @@ export default function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
+
           <div className="grid grid-cols-2 gap-8 text-sm">
             <div>
               <h3 className="mb-3 font-semibold text-white">Navigation</h3>
@@ -62,7 +56,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Newsletter */}
+
           <Newsletter />
         </div>
 
@@ -114,7 +108,7 @@ function Newsletter() {
             </motion.form>
         )}
 
-        {/* socials */}
+
         <div className="mt-6 flex gap-4">
           <a
               href="https://www.linkedin.com"

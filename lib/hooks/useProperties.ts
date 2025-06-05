@@ -4,15 +4,7 @@ import { useState, useEffect } from "react"
 import { propertyAPI } from "@/lib/api/properties"
 import type { Property, PropertyFilters, PaginatedResponse } from "@/lib/api/properties"
 
-/**
- * Hook to fetch all properties
- *
- * This is the simplest hook - just gets all properties from the API.
- * Perfect for admin interfaces or when you need the complete property catalog.
- *
- * Usage:
- * const { properties, loading, error, refetch } = useProperties()
- */
+
 export function useProperties() {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
@@ -52,20 +44,7 @@ export function useProperties() {
   return { properties, loading, error, refetch }
 }
 
-/**
- * Hook to fetch filtered properties with pagination
- *
- * This is the most powerful hook - handles filtering, searching, and pagination.
- * Perfect for property listing pages with advanced filtering options.
- *
- * The hook automatically refetches when filters change, so you can simply
- * update your filter state and the data will refresh automatically.
- *
- * Usage:
- * const filters = { isFeatured: true, city: 'Poitiers', limit: 10 }
- * const { data, loading, error, refetch } = useFilteredProperties(filters)
- * const properties = data?.items || []
- */
+
 export function useFilteredProperties(filters: PropertyFilters) {
   const [data, setData] = useState<PaginatedResponse<Property> | null>(null)
   const [loading, setLoading] = useState(true)
@@ -105,15 +84,7 @@ export function useFilteredProperties(filters: PropertyFilters) {
   return { data, loading, error, refetch }
 }
 
-/**
- * Hook to fetch a single property by ID
- *
- * Perfect for property detail pages. The hook automatically handles
- * loading states and error cases when the property isn't found.
- *
- * Usage:
- * const { property, loading, error, refetch } = useProperty(propertyId)
- */
+
 export function useProperty(id: string) {
   const [property, setProperty] = useState<Property | null>(null)
   const [loading, setLoading] = useState(true)
@@ -160,15 +131,7 @@ export function useProperty(id: string) {
   return { property, loading, error, refetch }
 }
 
-/**
- * Hook to fetch featured properties
- *
- * This is perfect for homepage sections or marketing highlights.
- * It specifically fetches properties where `isFeatured` is true.
- *
- * Usage:
- * const { properties, loading, error, refetch } = useFeaturedProperties(6)
- */
+
 export function useFeaturedProperties(limit = 6) {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(true)
@@ -208,16 +171,7 @@ export function useFeaturedProperties(limit = 6) {
   return { properties, loading, error, refetch }
 }
 
-/**
- * Hook to search properties
- *
- * Provides search functionality across property titles, descriptions, and cities.
- * Perfect for search bars and autocomplete features.
- *
- * Usage:
- * const { properties, loading, error, search } = usePropertySearch()
- * // Then call: search('appartement poitiers')
- */
+
 export function usePropertySearch() {
   const [properties, setProperties] = useState<Property[]>([])
   const [loading, setLoading] = useState(false)
@@ -254,16 +208,7 @@ export function usePropertySearch() {
   return { properties, loading, error, search, query, clearSearch }
 }
 
-/**
- * Hook for submitting property interest forms
- *
- * Handles the submission of contact forms when users express interest
- * in a property. Includes loading states and success/error handling.
- *
- * Usage:
- * const { submitInterest, loading, error, success } = usePropertyInterest()
- * // Then call: submitInterest({ propertyId, name, email, phone, message })
- */
+
 export function usePropertyInterest() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)

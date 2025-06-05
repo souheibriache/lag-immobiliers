@@ -735,17 +735,10 @@ const MOCK_PROPERTIES: Property[] = [
 
 ]
 
-/**
- * Property API Service - Handles all property-related API calls
- *
- * This service is designed to seamlessly switch between mock data and real API calls.
- * The interface matches your backend API structure exactly.
- */
+
 class PropertyAPIService {
 
-    /**
-     * Get all properties - the main method for fetching properties
-     */
+
     async getAllProperties(): Promise<Property[]> {
         await this.simulateNetworkDelay()
 
@@ -756,9 +749,7 @@ class PropertyAPIService {
         return this.makeRequest<Property[]>(API_CONFIG.ENDPOINTS.PROPERTIES)
     }
 
-    /**
-     * Get filtered properties with pagination support
-     */
+
     async getFilteredProperties(filters: PropertyFilters = {}): Promise<PaginatedResponse<Property>> {
         await this.simulateNetworkDelay()
 
@@ -788,9 +779,7 @@ class PropertyAPIService {
         return this.makeRequest<PaginatedResponse<Property>>(endpoint)
     }
 
-    /**
-     * Get a single property by ID
-     */
+
     async getPropertyById(id: string): Promise<Property> {
         await this.simulateNetworkDelay()
 
@@ -805,9 +794,7 @@ class PropertyAPIService {
         return this.makeRequest<Property>(API_CONFIG.ENDPOINTS.PROPERTY_BY_ID(id))
     }
 
-    /**
-     * Get featured properties - typically used for homepage highlights
-     */
+
     async getFeaturedProperties(limit = 6): Promise<Property[]> {
         const result = await this.getFilteredProperties({
             isFeatured: true,
@@ -816,9 +803,7 @@ class PropertyAPIService {
         return result.items
     }
 
-    /**
-     * Submit property interest form
-     */
+
     async submitPropertyInterest(data: {
         propertyId: string
         name: string
@@ -839,9 +824,7 @@ class PropertyAPIService {
         })
     }
 
-    /**
-     * Search properties by query string
-     */
+
     async searchProperties(query: string, limit = 20): Promise<Property[]> {
         const result = await this.getFilteredProperties({
             search: query,
@@ -850,9 +833,7 @@ class PropertyAPIService {
         return result.items
     }
 
-    /**
-     * Simulates network delay for realistic development experience
-     */
+
     private async simulateNetworkDelay(min = 300, max = 800): Promise<void> {
         if (API_CONFIG.USE_MOCK_DATA) {
             const delay = Math.random() * (max - min) + min
@@ -860,9 +841,7 @@ class PropertyAPIService {
         }
     }
 
-    /**
-     * Makes HTTP request to real API - used when USE_MOCK_DATA is false
-     */
+
     private async makeRequest<T>(endpoint: string, options?: RequestInit): Promise<T> {
         const url = `${API_CONFIG.BASE_URL}${endpoint}`
 
@@ -881,9 +860,7 @@ class PropertyAPIService {
         return response.json()
     }
 
-    /**
-     * Applies filters to mock data - mimics backend filtering logic
-     */
+
     private applyFilters(properties: Property[], filters: PropertyFilters): Property[] {
         let filtered = [...properties]
         if (filters.isFeatured !== undefined) {

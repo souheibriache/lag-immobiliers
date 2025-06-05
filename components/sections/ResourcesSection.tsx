@@ -47,7 +47,7 @@ export default function ResourcesSection() {
           className="section-padding bg-gradient-to-br from-slate-50 to-white dark:from-slate-800 dark:to-slate-900"
       >
         <div className="section-container">
-          {/* Header Section */}
+
           <header className="mb-16 text-center">
             <Badge className="bg-emerald-600 text-white px-6 py-2 rounded-full shadow">
               Centre de ressources
@@ -59,9 +59,9 @@ export default function ResourcesSection() {
               Guides pratiques, livres blancs et outils maison pour passer au niveau supérieur.
             </p>
 
-            {/* Dynamic Tab System */}
+
             <div className="relative mt-10 inline-flex rounded-full bg-slate-100 dark:bg-slate-700 p-1 shadow-inner">
-              {/* Animated ink-bar indicator */}
+
               <motion.span
                   layoutId="inkbar"
                   className="absolute inset-0 z-0 rounded-full bg-emerald-600"
@@ -90,7 +90,7 @@ export default function ResourcesSection() {
             </div>
           </header>
 
-          {/* Centered Products Grid with Fixed Card Heights */}
+
           <div className="flex flex-wrap justify-center gap-10 max-w-6xl mx-auto">
             {filteredProducts.slice(0, 6).map((product, index) => (
                 <motion.article
@@ -102,7 +102,7 @@ export default function ResourcesSection() {
                     className="group relative h-96 w-80 flex flex-col overflow-hidden rounded-3xl bg-white dark:bg-slate-800 shadow-xl hover:shadow-2xl transition cursor-pointer"
                     onClick={() => window.location.href = `/ressources/${product.id}`}
                 >
-                  {/* Fixed Height Image Section */}
+
                   <div className="relative h-48 w-full overflow-hidden">
                     <LazyImage
                         src={getProductImage(product)}
@@ -112,7 +112,7 @@ export default function ResourcesSection() {
                         className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />
 
-                    {/* Featured Product Badge */}
+
                     {product.isFeatured && (
                         <div className="absolute top-3 left-3">
                           <Badge className="bg-emerald-600 text-white text-xs px-2 py-1">
@@ -121,7 +121,7 @@ export default function ResourcesSection() {
                         </div>
                     )}
 
-                    {/* Discount Indicator Badge */}
+
                     {hasDiscount(product) && (
                         <div className="absolute top-3 right-3">
                           <Badge className="bg-red-500 text-white text-xs px-2 py-1">
@@ -131,7 +131,7 @@ export default function ResourcesSection() {
                     )}
                   </div>
 
-                  {/* Flexible Content Area */}
+
                   <div className="flex-1 flex flex-col p-6">
                     <div className="flex-1 space-y-2">
                       <h3 className="text-lg font-semibold leading-tight group-hover:text-emerald-600 transition-colors">
@@ -141,7 +141,7 @@ export default function ResourcesSection() {
                         {product.description}
                       </p>
 
-                      {/* Product Characteristics Display */}
+
                       {product.characteristics && product.characteristics.length > 0 && (
                           <div className="flex flex-wrap gap-1 mt-2">
                             {product.characteristics.slice(0, 2).map((characteristic, idx) => (
@@ -158,7 +158,7 @@ export default function ResourcesSection() {
                       )}
                     </div>
 
-                    {/* Fixed Bottom Section for Pricing */}
+
                     <div className="mt-4 pt-2 border-t border-slate-100 dark:border-slate-700">
                       <div className="flex items-center justify-between">
                         <div className="text-right">
@@ -175,7 +175,7 @@ export default function ResourcesSection() {
                     </div>
                   </div>
 
-                  {/* External Link Quick Launch Button */}
+
                   {product.link && (
                       <Link
                           href={product.link}
@@ -191,7 +191,7 @@ export default function ResourcesSection() {
             ))}
           </div>
 
-          {/* View All Resources Button */}
+
           {filteredProducts.length > 6 && (
               <div className="mt-16 text-center">
                 <Button
@@ -203,7 +203,7 @@ export default function ResourcesSection() {
               </div>
           )}
 
-          {/* Empty State for No Products */}
+
           {filteredProducts.length === 0 && (
               <div className="text-center py-16">
                 <p className="text-slate-600 dark:text-slate-400">

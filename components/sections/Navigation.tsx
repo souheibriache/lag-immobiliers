@@ -61,7 +61,7 @@ export default function Navigation() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16 lg:h-20">
 
-              {/* Logo - Fixed consistent path */}
+
               <Link href="/" className="flex items-center">
                 <Image
                     src="/logo.png"
@@ -73,7 +73,7 @@ export default function Navigation() {
                 />
               </Link>
 
-              {/* Desktop Menu */}
+
               <div className="hidden lg:flex items-center space-x-8">
                 {navigationLinks.map(({ href, label }) => (
                     <button
@@ -91,7 +91,7 @@ export default function Navigation() {
                     </button>
                 ))}
 
-                {/* Contact Phone */}
+
                 <a
                     href="tel:+33123456789"
                     className={`flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg transition-colors ${
@@ -105,7 +105,7 @@ export default function Navigation() {
                 </a>
               </div>
 
-              {/* Mobile Menu Button */}
+
               <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   className={`lg:hidden p-2 rounded-lg transition-colors ${
@@ -120,7 +120,7 @@ export default function Navigation() {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+
         <AnimatePresence>
           {isMenuOpen && (
               <>
@@ -141,7 +141,7 @@ export default function Navigation() {
                 >
                   <div className="p-6">
                     <div className="flex justify-between items-center mb-8">
-                      {/* Fixed consistent logo path */}
+
                       <Image
                           src="/logo.png"
                           alt="LAG Holding"
