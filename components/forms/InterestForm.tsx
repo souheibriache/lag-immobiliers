@@ -61,6 +61,8 @@ interface GenericInterestFormProps {
 }
 
 const createRequestConfig = (type: RequestType, id: string): RequestConfig => {
+  const baseUrl = "https://api.lag-services.com/api/v1";
+
   switch (type) {
     case "property":
       return {
