@@ -24,8 +24,8 @@ import { useProduct } from "@/lib/hooks/useProducts";
 import CheckoutButton from "@/components/payment/CheckoutButton";
 
 export default function ResourceDetailPage({
-  params,
-}: {
+                                             params,
+                                           }: {
   params: { slug: string };
 }) {
   const router = useRouter();
@@ -76,8 +76,8 @@ export default function ResourceDetailPage({
       FORMATION: "/placeholder.svg?height=400&width=600&text=🎓+Formation",
     };
     return (
-      typeMap[product.type as keyof typeof typeMap] ||
-      "/placeholder.svg?height=400&width=600&text=📄+Ressource"
+        typeMap[product.type as keyof typeof typeMap] ||
+        "/placeholder.svg?height=400&width=600&text=📄+Ressource"
     );
   };
   const formatDate = (dateString: string) => {
@@ -96,343 +96,345 @@ export default function ResourceDetailPage({
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navigation />
-        <main className="flex-1 pt-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="space-y-8">
-              <Skeleton className="h-8 w-64" />
-              <Skeleton className="h-80 w-full rounded-2xl" />
-              <div className="grid lg:grid-cols-3 gap-8">
-                <div className="lg:col-span-2 space-y-6">
-                  <Skeleton className="h-6 w-48" />
-                  <Skeleton className="h-4 w-full" />
-                  <Skeleton className="h-4 w-3/4" />
-                </div>
-                <div className="space-y-4">
-                  <Skeleton className="h-32 w-full rounded-xl" />
+        <div className="min-h-screen bg-slate-50 flex flex-col">
+          <Navigation />
+          <main className="flex-1 pt-16">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <div className="space-y-8">
+                <Skeleton className="h-8 w-64" />
+                <Skeleton className="h-80 w-full rounded-2xl" />
+                <div className="grid lg:grid-cols-3 gap-8">
+                  <div className="lg:col-span-2 space-y-6">
+                    <Skeleton className="h-6 w-48" />
+                    <Skeleton className="h-4 w-full" />
+                    <Skeleton className="h-4 w-3/4" />
+                  </div>
+                  <div className="space-y-4">
+                    <Skeleton className="h-32 w-full rounded-xl" />
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
+          </main>
+          <Footer />
+        </div>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="min-h-screen bg-slate-50 flex flex-col">
-        <Navigation />
-        <main className="flex-1 pt-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-            <h1 className="text-2xl font-semibold text-slate-900 mb-4">
-              Ressource non trouvée
-            </h1>
-            <p className="text-slate-600 mb-8">
-              La ressource que vous recherchez n'existe pas ou n'est plus
-              disponible.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <Button
-                variant="outline"
-                onClick={() => router.back()}
-                className="border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))]"
-              >
-                <ArrowLeft size={16} className="mr-2" />
-                Retour
-              </Button>
-              <Button
-                onClick={() => router.push("/ressources")}
-                className="bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white"
-              >
-                Voir toutes les ressources
-              </Button>
+        <div className="min-h-screen bg-slate-50 flex flex-col">
+          <Navigation />
+          <main className="flex-1 pt-16">
+            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
+              <h1 className="text-2xl font-semibold text-slate-900 mb-4">
+                Ressource non trouvée
+              </h1>
+              <p className="text-slate-600 mb-8">
+                La ressource que vous recherchez n'existe pas ou n'est plus
+                disponible.
+              </p>
+              <div className="flex gap-4 justify-center">
+                <Button
+                    variant="outline"
+                    onClick={() => router.back()}
+                    className="border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))]"
+                >
+                  <ArrowLeft size={16} className="mr-2" />
+                  Retour
+                </Button>
+                <Button
+                    onClick={() => router.push("/ressources")}
+                    className="bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white"
+                >
+                  Voir toutes les ressources
+                </Button>
+              </div>
             </div>
-          </div>
-        </main>
-        <Footer />
-      </div>
+          </main>
+          <Footer />
+        </div>
     );
   }
 
   const finalPrice = getFinalPrice(product.price, product.discount);
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
-      <Navigation />
+      <div className="min-h-screen bg-slate-50 flex flex-col">
+        <Navigation />
 
-      <main className="flex-1 pt-16">
-        <div className="bg-white border-b border-slate-200">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-            <nav className="flex items-center gap-2 text-sm text-slate-600">
-              <Link
-                href="/"
-                className="hover:text-[hsl(var(--brand))] transition-colors"
-              >
-                Accueil
-              </Link>
-              <span>/</span>
-              <Link
-                href="/ressources"
-                className="hover:text-[hsl(var(--brand))] transition-colors"
-              >
-                Ressources
-              </Link>
-              <span>/</span>
-              <span className="text-slate-900">{product.title}</span>
-            </nav>
-          </div>
-        </div>
-
-        <section className="bg-white">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="flex items-center gap-4 mb-8">
-              <Button
-                variant="outline"
-                onClick={() => router.back()}
-                className="border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))]"
-              >
-                <ArrowLeft size={16} className="mr-2" />
-                Retour
-              </Button>
+        <main className="flex-1 pt-16">
+          <div className="bg-white border-b border-slate-200">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+              <nav className="flex items-center gap-2 text-sm text-slate-600">
+                <Link
+                    href="/"
+                    className="hover:text-[hsl(var(--brand))] transition-colors"
+                >
+                  Accueil
+                </Link>
+                <span>/</span>
+                <Link
+                    href="/ressources"
+                    className="hover:text-[hsl(var(--brand))] transition-colors"
+                >
+                  Ressources
+                </Link>
+                <span>/</span>
+                <span className="text-slate-900">{product.title}</span>
+              </nav>
             </div>
+          </div>
 
-            <div className="grid lg:grid-cols-2 gap-12 items-start">
-              <motion.div
-                initial={{ opacity: 0, x: -20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6 }}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <Badge className="bg-[hsl(var(--brand))] text-white px-3 py-1">
-                    {getTypeIcon(product.type)}
-                    <span className="ml-2">
+          <section className="bg-white">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+              <div className="flex items-center gap-4 mb-8">
+                <Button
+                    variant="outline"
+                    onClick={() => router.back()}
+                    className="border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))]"
+                >
+                  <ArrowLeft size={16} className="mr-2" />
+                  Retour
+                </Button>
+              </div>
+
+              <div className="grid lg:grid-cols-2 gap-12 items-start">
+                <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6 }}
+                >
+                  <div className="flex items-center gap-3 mb-4">
+                    <Badge className="bg-[hsl(var(--brand))] text-white px-3 py-1">
+                      {getTypeIcon(product.type)}
+                      <span className="ml-2">
                       {getTypeDisplayName(product.type)}
                     </span>
-                  </Badge>
-                  {product.isFeatured && (
-                    <Badge className="bg-amber-500 text-white px-3 py-1">
-                      <Star className="w-3 h-3 mr-1 fill-current" />
-                      Recommandé
                     </Badge>
-                  )}
-                </div>
-
-                <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 leading-tight">
-                  {product.title}
-                </h1>
-
-                <p className="text-lg text-slate-600 leading-relaxed mb-8">
-                  {product.description}
-                </p>
-
-                <div className="flex items-center gap-6 mb-8">
-                  <div className="text-center">
-                    {hasDiscount(product.discount) && (
-                      <div className="text-sm text-slate-400 line-through mb-1">
-                        {product.price.toFixed(2)} €
-                      </div>
-                    )}
-                    <div className="text-2xl font-bold text-[hsl(var(--brand))]">
-                      {finalPrice > 0
-                        ? `${finalPrice.toFixed(2)} €`
-                        : "Gratuit"}
-                    </div>
-                    {hasDiscount(product.discount) && (
-                      <div className="text-sm text-green-600 font-medium">
-                        Économie: {product.discount.toFixed(2)} €
-                      </div>
+                    {product.isFeatured && (
+                        <Badge className="bg-amber-500 text-white px-3 py-1">
+                          <Star className="w-3 h-3 mr-1 fill-current" />
+                          Recommandé
+                        </Badge>
                     )}
                   </div>
-                </div>
 
-                {product.link && (
-                  <div className="flex flex-col sm:flex-row gap-4">
-                    <CheckoutButton
-                      productId={product.id}
-                      productTitle={product.title}
-                      price={product.price}
-                      discount={product.discount}
-                      size="lg"
-                      className="flex-1"
-                      productType={product.type}
-                    />
-                    <Button
-                      size="lg"
-                      variant="outline"
-                      onClick={() => window.open(product.link, "_blank")}
-                      className="flex-1 border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-light))]/10"
-                    >
-                      <ExternalLink size={18} className="mr-2" />
-                      Voir sur le site original
-                    </Button>
-                  </div>
-                )}
-              </motion.div>
+                  <h1 className="text-3xl lg:text-4xl font-bold text-slate-900 mb-6 leading-tight">
+                    {product.title}
+                  </h1>
 
-              <motion.div
-                initial={{ opacity: 0, x: 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: 0.2 }}
-                className="relative"
-              >
-                <LazyImage
-                  src={getProductImage(product)}
-                  alt={product.title}
-                  width={600}
-                  height={400}
-                  className="rounded-2xl shadow-xl w-full h-auto"
-                />
-              </motion.div>
-            </div>
-          </div>
-        </section>
+                  <p className="text-lg text-slate-600 leading-relaxed mb-8">
+                    {product.description}
+                  </p>
 
-        <section className="py-16">
-          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-3 gap-12">
-              <div className="lg:col-span-2">
-                <div className="mb-12">
-                  <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-                    Description détaillée
-                  </h2>
-                  <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
-                    <p className="text-slate-700 leading-relaxed text-lg">
-                      {product.description}
-                    </p>
-                  </div>
-                </div>
-
-                {product.characteristics &&
-                  product.characteristics.length > 0 && (
-                    <div className="mb-12">
-                      <h2 className="text-2xl font-semibold text-slate-900 mb-6">
-                        Caractéristiques
-                      </h2>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        {product.characteristics.map(
-                          (characteristic, index) => (
-                            <motion.div
-                              key={index}
-                              initial={{ opacity: 0, y: 10 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              viewport={{ once: true }}
-                              transition={{ delay: index * 0.1 }}
-                              className="flex items-start gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
-                            >
-                              <CheckCircle2 className="w-5 h-5 text-[hsl(var(--brand))] flex-shrink-0 mt-0.5" />
-                              <span className="text-slate-700 leading-relaxed">
-                                {characteristic}
-                              </span>
-                            </motion.div>
-                          )
-                        )}
-                      </div>
-                    </div>
-                  )}
-              </div>
-
-              <div className="space-y-8">
-                <Card className="border-[hsl(var(--brand-light))] shadow-lg sticky top-8">
-                  <CardContent className="p-6">
-                    <div className="text-center mb-6">
-                      <div className="text-3xl font-bold text-[hsl(var(--brand))] mb-2">
+                  <div className="flex items-center gap-6 mb-8">
+                    <div className="text-center">
+                      {hasDiscount(product.discount) && (
+                          <div className="text-sm text-slate-400 line-through mb-1">
+                            {product.price.toFixed(2)} €
+                          </div>
+                      )}
+                      <div className="text-2xl font-bold text-[hsl(var(--brand))]">
                         {finalPrice > 0
-                          ? `${finalPrice.toFixed(2)} €`
-                          : "Gratuit"}
+                            ? `${finalPrice.toFixed(2)} €`
+                            : "Gratuit"}
                       </div>
                       {hasDiscount(product.discount) && (
-                        <div className="text-sm text-slate-500 line-through mb-1">
-                          Prix original: {product.price.toFixed(2)} €
-                        </div>
+                          <div className="text-sm text-green-600 font-medium">
+                            Économie: {product.discount.toFixed(2)} €
+                          </div>
                       )}
-                      <p className="text-sm text-slate-600">
-                        {getTypeDisplayName(product.type)} de qualité
-                        professionnelle
+                    </div>
+                  </div>
+
+                  {product.link && (
+                      <div className="flex flex-col sm:flex-row gap-4">
+                        <CheckoutButton
+                            productId={product.id}
+                            productTitle={product.title}
+                            price={product.price}
+                            discount={product.discount}
+                            size="lg"
+                            className="flex-1"
+                            productType={product.type}
+                        />
+                        <Button
+                            size="lg"
+                            variant="outline"
+                            onClick={() => window.open(product.link, "_blank")}
+                            className="flex-1 border-slate-300 hover:border-[hsl(var(--brand))] hover:text-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-light))]/10"
+                        >
+                          <ExternalLink size={18} className="mr-2" />
+                          Voir sur le site original
+                        </Button>
+                      </div>
+                  )}
+                </motion.div>
+
+                <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="relative"
+                >
+                  <LazyImage
+                      src={getProductImage(product)}
+                      alt={product.title}
+                      width={600}
+                      height={400}
+                      className="rounded-2xl shadow-xl w-full h-auto"
+                  />
+                </motion.div>
+              </div>
+            </div>
+          </section>
+
+          <section className="py-16">
+            <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              <div className="grid lg:grid-cols-3 gap-12">
+                <div className="lg:col-span-2">
+                  <div className="mb-12">
+                    <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+                      Description détaillée
+                    </h2>
+                    <div className="bg-white rounded-xl p-6 border border-slate-100 shadow-sm">
+                      <p className="text-slate-700 leading-relaxed text-lg">
+                        {product.description}
                       </p>
                     </div>
+                  </div>
 
-                    <div className="space-y-4 mb-6">
-                      <div className="flex items-center gap-3">
-                        {getTypeIcon(product.type)}
-                        <span className="text-sm text-slate-700">
-                          {getTypeDisplayName(product.type)}
-                        </span>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <Calendar className="w-5 h-5 text-[hsl(var(--brand))]" />
-                        <span className="text-sm text-slate-700">
-                          Ajouté le {formatDate(product.createdAt)}
-                        </span>
-                      </div>
-                      {product.isFeatured && (
-                        <div className="flex items-center gap-3">
-                          <Star className="w-5 h-5 text-amber-500 fill-current" />
-                          <span className="text-sm text-slate-700">
-                            Ressource recommandée
-                          </span>
-                        </div>
+                  {product.characteristics &&
+                      product.characteristics.length > 0 && (
+                          <div className="mb-12">
+                            <h2 className="text-2xl font-semibold text-slate-900 mb-6">
+                              Caractéristiques
+                            </h2>
+                            <div className="grid sm:grid-cols-2 gap-4">
+                              {product.characteristics.map(
+                                  (characteristic, index) => (
+                                      <motion.div
+                                          key={index}
+                                          initial={{ opacity: 0, y: 10 }}
+                                          whileInView={{ opacity: 1, y: 0 }}
+                                          viewport={{ once: true }}
+                                          transition={{ delay: index * 0.1 }}
+                                          className="flex items-start gap-3 p-4 rounded-xl bg-white border border-slate-100 shadow-sm"
+                                      >
+                                        <CheckCircle2 className="w-5 h-5 text-[hsl(var(--brand))] flex-shrink-0 mt-0.5" />
+                                        <span className="text-slate-700 leading-relaxed">
+                                {characteristic}
+                              </span>
+                                      </motion.div>
+                                  )
+                              )}
+                            </div>
+                          </div>
                       )}
-                    </div>
+                </div>
 
-                    {product.link && (
-                      <Button
-                        className="w-full bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white"
-                        onClick={() => window.open(product.link, "_blank")}
-                      >
-                        <ExternalLink size={16} className="mr-2" />
-                        Accéder maintenant
-                      </Button>
-                    )}
-                  </CardContent>
-                </Card>
-
-                <Card className="border-slate-200 shadow-sm">
-                  <CardContent className="p-6">
-                    <h3 className="font-semibold text-slate-900 mb-4">
-                      Informations sur la ressource
-                    </h3>
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-600">Type:</span>
-                        <span className="text-slate-900">
-                          {getTypeDisplayName(product.type)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-600">Créé le:</span>
-                        <span className="text-slate-900">
-                          {formatDate(product.createdAt)}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-slate-600">
-                          Dernière mise à jour:
-                        </span>
-                        <span className="text-slate-900">
-                          {formatDate(product.updatedAt)}
-                        </span>
-                      </div>
-                      {hasDiscount(product.discount) && (
-                        <div className="flex items-center justify-between">
-                          <span className="text-slate-600">Réduction:</span>
-                          <span className="text-green-600 font-medium">
-                            {product.discount.toFixed(2)} €
-                          </span>
+                <div className="lg:self-start">
+                  <div className="sticky top-8 space-y-8 z-10">
+                    <Card className="border-[hsl(var(--brand-light))] shadow-lg">
+                      <CardContent className="p-6">
+                        <div className="text-center mb-6">
+                          <div className="text-3xl font-bold text-[hsl(var(--brand))] mb-2">
+                            {finalPrice > 0
+                                ? `${finalPrice.toFixed(2)} €`
+                                : "Gratuit"}
+                          </div>
+                          {hasDiscount(product.discount) && (
+                              <div className="text-sm text-slate-500 line-through mb-1">
+                                Prix original: {product.price.toFixed(2)} €
+                              </div>
+                          )}
+                          <p className="text-sm text-slate-600">
+                            {getTypeDisplayName(product.type)} de qualité
+                            professionnelle
+                          </p>
                         </div>
-                      )}
-                    </div>
-                  </CardContent>
-                </Card>
+
+                        <div className="space-y-4 mb-6">
+                          <div className="flex items-center gap-3">
+                            {getTypeIcon(product.type)}
+                            <span className="text-sm text-slate-700">
+                            {getTypeDisplayName(product.type)}
+                          </span>
+                          </div>
+                          <div className="flex items-center gap-3">
+                            <Calendar className="w-5 h-5 text-[hsl(var(--brand))]" />
+                            <span className="text-sm text-slate-700">
+                            Ajouté le {formatDate(product.createdAt)}
+                          </span>
+                          </div>
+                          {product.isFeatured && (
+                              <div className="flex items-center gap-3">
+                                <Star className="w-5 h-5 text-amber-500 fill-current" />
+                                <span className="text-sm text-slate-700">
+                              Ressource recommandée
+                            </span>
+                              </div>
+                          )}
+                        </div>
+
+                        {product.link && (
+                            <Button
+                                className="w-full bg-[hsl(var(--brand))] hover:bg-[hsl(var(--brand-dark))] text-white"
+                                onClick={() => window.open(product.link, "_blank")}
+                            >
+                              <ExternalLink size={16} className="mr-2" />
+                              Accéder maintenant
+                            </Button>
+                        )}
+                      </CardContent>
+                    </Card>
+
+                    <Card className="border-slate-200 shadow-sm">
+                      <CardContent className="p-6">
+                        <h3 className="font-semibold text-slate-900 mb-4">
+                          Informations sur la ressource
+                        </h3>
+                        <div className="space-y-3 text-sm">
+                          <div className="flex items-center justify-between">
+                            <span className="text-slate-600">Type:</span>
+                            <span className="text-slate-900">
+                            {getTypeDisplayName(product.type)}
+                          </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                            <span className="text-slate-600">Créé le:</span>
+                            <span className="text-slate-900">
+                            {formatDate(product.createdAt)}
+                          </span>
+                          </div>
+                          <div className="flex items-center justify-between">
+                          <span className="text-slate-600">
+                            Dernière mise à jour:
+                          </span>
+                            <span className="text-slate-900">
+                            {formatDate(product.updatedAt)}
+                          </span>
+                          </div>
+                          {hasDiscount(product.discount) && (
+                              <div className="flex items-center justify-between">
+                                <span className="text-slate-600">Réduction:</span>
+                                <span className="text-green-600 font-medium">
+                              {product.discount.toFixed(2)} €
+                            </span>
+                              </div>
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
   );
 }
